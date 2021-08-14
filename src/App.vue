@@ -1,5 +1,16 @@
+<!--
+ * @Descripttion: 
+ * @Author: SUI
+ * @Date: 2021-08-14 17:41:47
+ * @LastEditors: SUI
+ * @LastEditTime: 2021-08-14 21:56:08
+ * @FilePath: \mall-system-gitee\src\App.vue
+-->
 <template>
   <div id="app">
+      <el-button type="primary">主要按钮</el-button>
+
+      
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
