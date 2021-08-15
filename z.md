@@ -23,37 +23,33 @@ import './plugins/element'
 
 ```javascript
 module.exports = {
-  "plugins": [
+  plugins: [
     [
-      "component",
+      'component',
       {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
+        libraryName: 'element-ui',
+        styleLibraryName: 'theme-chalk'
       }
     ]
   ]
 }
 ```
 
-
-
 #### `Vue 3`
 
 ```
-npm install element-plus --save 
+npm install element-plus --save
 ```
-
-
 
 ### `axios`
 
 ```
 npm i axios -S
+
+// 导航进度条
+npm install --save nprogress
 ```
-
-
 
 ## 效果
 
 http://gl.timemeetyou.com/#/welcome
-
