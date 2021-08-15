@@ -1,14 +1,14 @@
 <!--
  * @Descripttion: 
  * @Author: SUI
- * @Date: 2021-08-15 12:41:02
+ * @Date: 2021-08-15 09:23:13
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 12:41:31
- * @FilePath: \mall-system-gitee\src\views\Home.vue
+ * @LastEditTime: 2021-08-15 09:23:37
+ * @FilePath: \mall-system-gitee\src\views\Welcome.vue
 -->
 <template>
   <div>
-    Vue首页
+    欢迎来到Vue
   </div>
 </template>
 

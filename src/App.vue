@@ -3,41 +3,26 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-14 21:56:08
+ * @LastEditTime: 2021-08-15 10:48:26
  * @FilePath: \mall-system-gitee\src\App.vue
 -->
 <template>
   <div id="app">
-      <el-button type="primary">主要按钮</el-button>
-
-      
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <!-- 路由 -->
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
+// 引入样式
+@import 'assets/index.css';
+@import 'assets/common.scss';
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  font: 12px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB,
+    '\5B8B\4F53', sans-serif;
+  color: #333;
+  width: 100%;
+  height: 100%;
 }
 </style>
