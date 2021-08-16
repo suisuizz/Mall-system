@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 19:39:54
- * @FilePath: \mall-gitee\src\plugins\element.js
+ * @LastEditTime: 2021-08-16 23:54:21
+ * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
 import Vue from 'vue';
@@ -22,7 +22,10 @@ import {
   Main,
   Row,
   Col,
-
+  MessageBox,
+  Menu,
+  Submenu,
+  MenuItem,
 
 
 
@@ -33,9 +36,6 @@ import {
   // Dropdown,
   // DropdownMenu,
   // DropdownItem,
-  // Menu,
-  // Submenu,
-  // MenuItem,
   // MenuItemGroup,
   // InputNumber,
   // Radio,
@@ -91,7 +91,6 @@ import {
   // PageHeader,
   // CascaderPanel,
   // Loading,
-  // MessageBox,
   // Notification
 } from 'element-ui';
 
@@ -108,6 +107,9 @@ Vue.use(Aside);
 Vue.use(Main);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);
 
 
 
@@ -120,9 +122,6 @@ Vue.use(Col);
 // Vue.use(Dropdown);
 // Vue.use(DropdownMenu);
 // Vue.use(DropdownItem);
-// Vue.use(Menu);
-// Vue.use(Submenu);
-// Vue.use(MenuItem);
 // Vue.use(MenuItemGroup);
 // Vue.use(InputNumber);
 // Vue.use(Radio);
@@ -181,12 +180,12 @@ Vue.use(Col);
 // Vue.use(Loading.directive);
 
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 
 
 // Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;
 // Vue.prototype.$alert = MessageBox.alert;
-// Vue.prototype.$confirm = MessageBox.confirm;
 // Vue.prototype.$prompt = MessageBox.prompt;
 // Vue.prototype.$notify = Notification;

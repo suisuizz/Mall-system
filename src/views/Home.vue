@@ -3,12 +3,13 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 19:55:14
- * @FilePath: \mall-gitee\src\views\Home.vue
+ * @LastEditTime: 2021-08-16 23:53:19
+ * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
+  <!-- container -->
   <el-container class="home">
-    <!-- 头部 -->
+    <!-- header -->
     <el-header>
       <el-row type="flex" class="row-bg" justify="space-between" align="middle">
         <el-col>
@@ -18,15 +19,57 @@
           </el-row>
         </el-col>
         <!-- <el-col :span="1"></el-col> -->
-        <el-button type="info">退出</el-button>
+        <el-button type="info" @click="logout">退出</el-button>
       </el-row>
     </el-header>
 
     <el-container>
-      <!-- 导航 -->
-      <el-aside width="200px">Aside</el-aside>
+      <!-- aside -->
+      <el-aside width="200px">
+        <el-menu
+          class="el-menu-vertical-demo"
+          background-color="#333744"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          :collapse="isCollapse"
+          :default-active="activePath"
+          unique-opened
+        >
+          <!-- 一级菜单 -->
+          <!-- index 是字符串类型  且唯一性 -->
+          <el-submenu
+            :index="item.id + ''"
+            v-for="item in menuList"
+            :key="item.id"
+          >
+            <!-- 一级菜单模板区域 -->
+            <template slot="title">
+              <!-- icon -->
+              <i :class="iconObj[item.id]"></i>
+              <!-- 文本 -->
+              <span>{{ item.authName }}</span>
+            </template>
+
+            <!-- 二级菜单 -->
+            <el-menu-item
+              :index="keys.id + ''"
+              v-for="keys in item.children"
+              :key="keys.id"
+              @click="saveNavStatus('/' + keys.path)"
+            >
+              <!-- 二级菜单模板区域 -->
+              <template slot="title">
+                <!-- icon -->
+                <i class="el-icon-s-operation"></i>
+                <!-- 文本 -->
+                <span>{{ keys.authName }}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
       <el-container>
-        <!-- 内容 -->
+        <!-- main -->
         <el-main><router-view /></el-main>
       </el-container>
     </el-container>
@@ -38,10 +81,67 @@ export default {
   name: 'Home',
 
   data() {
-    return {}
+    return {
+      // 左侧菜单数据
+      menuList: [],
+      // 字体图标对象
+      iconObj: {
+        '125': 'el-icon-user-solid',
+        '103': 'el-icon-s-tools',
+        '101': 'el-icon-s-goods',
+        '102': 'el-icon-s-order',
+        '145': 'el-icon-s-marketing'
+      },
+      // 侧边栏菜单默认不折叠
+      isCollapse: false,
+      // 被激活的导航地址
+      activePath: ''
+    }
   },
 
-  methods: {}
+  created() {
+    // 获取 aside 数据
+    this.getMenuList()
+    this.activePath = window.sessionStorage.getItem('activePath')
+  },
+
+  methods: {
+    // 退出登录
+    logout() {
+      this.$confirm('是否退出登录?', '提示', {
+        confirmButtonText: '退出',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$message.success('退出成功')
+          // 退出就是清空token和重新跳转页面
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+        })
+        .catch(() => {
+          this.$message.info('取消')
+        })
+    },
+
+    // 获取 aside 数据
+    getMenuList() {
+      let that = this
+      that.$api.get('menus', that.loginForm, (res) => {
+        if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
+        console.log(res.data)
+        that.menuList = res.data
+      })
+    },
+
+    // 拿到当前的点击状态
+    saveNavStatus(activePath) {
+      // 存下方便刷新获取
+      window.sessionStorage.setItem('activePath', activePath)
+      // 当前页赋值
+      this.activePath = activePath
+    }
+  }
 }
 </script>
 
@@ -76,6 +176,10 @@ export default {
   .el-aside {
     line-height: 200px;
     background-color: #333744;
+
+    .el-menu {
+      border-right: none;
+    }
   }
 
   // main
