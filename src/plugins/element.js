@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 11:35:37
- * @FilePath: \mall-system-gitee\src\plugins\element.js
+ * @LastEditTime: 2021-08-16 19:39:54
+ * @FilePath: \mall-gitee\src\plugins\element.js
  */
 
 import Vue from 'vue';
@@ -16,6 +16,12 @@ import {
   FormItem,
   Input,
   Message,
+  Container,
+  Header,
+  Aside,
+  Main,
+  Row,
+  Col,
 
 
 
@@ -59,8 +65,6 @@ import {
   // Alert,
   // Slider,
   // Icon,
-  // Row,
-  // Col,
   // Upload,
   // Progress,
   // Spinner,
@@ -76,10 +80,6 @@ import {
   // Cascader,
   // ColorPicker,
   // Transfer,
-  // Container,
-  // Header,
-  // Aside,
-  // Main,
   // Footer,
   // Timeline,
   // TimelineItem,
@@ -102,6 +102,12 @@ Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
+Vue.use(Container);
+Vue.use(Header);
+Vue.use(Aside);
+Vue.use(Main);
+Vue.use(Row);
+Vue.use(Col);
 
 
 
@@ -146,8 +152,6 @@ Vue.use(Input);
 // Vue.use(Alert);
 // Vue.use(Slider);
 // Vue.use(Icon);
-// Vue.use(Row);
-// Vue.use(Col);
 // Vue.use(Upload);
 // Vue.use(Progress);
 // Vue.use(Spinner);
@@ -163,10 +167,6 @@ Vue.use(Input);
 // Vue.use(Cascader);
 // Vue.use(ColorPicker);
 // Vue.use(Transfer);
-// Vue.use(Container);
-// Vue.use(Header);
-// Vue.use(Aside);
-// Vue.use(Main);
 // Vue.use(Footer);
 // Vue.use(Timeline);
 // Vue.use(TimelineItem);

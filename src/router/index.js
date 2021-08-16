@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 12:42:13
- * @FilePath: \mall-system-gitee\src\router\index.js
+ * @LastEditTime: 2021-08-16 19:17:18
+ * @FilePath: \mall-gitee\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -19,7 +19,7 @@ const routes = [{
   {
     path: '/login',
     // 路由懒加载
-    component: () => import('@/components/Login'),
+    component: () => import('@/components/home/Login'),
     meta: {
       name: '登录'
     }
@@ -31,7 +31,7 @@ const routes = [{
     redirect: '/welcome',
     children: [{
       path: '/welcome',
-      component: () => import('@/components/Welcome')
+      component: () => import('@/components/home/Welcome')
     }, ]
   },
 ]

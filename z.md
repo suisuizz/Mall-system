@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion:
+ * @Author: SUI
+ * @Date: 2021-08-16 19:01:41
+ * @LastEditors: SUI
+ * @LastEditTime: 2021-08-16 19:26:21
+ * @FilePath: \mall-gitee\z.md
+-->
+
 # Project Configuration
 
 ## Project install
@@ -52,4 +61,4 @@ npm install --save nprogress
 
 ## 效果
 
-http://gl.timemeetyou.com/#/welcome
+http://gl.timemeetyou.com/#/login
