@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 19:17:18
- * @FilePath: \mall-gitee\src\router\index.js
+ * @LastEditTime: 2021-08-17 23:43:55
+ * @FilePath: \mall-system-gitee\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -30,9 +30,14 @@ const routes = [{
     // 重定向
     redirect: '/welcome',
     children: [{
-      path: '/welcome',
-      component: () => import('@/components/home/Welcome')
-    }, ]
+        path: '/welcome',
+        component: () => import('@/components/home/Welcome')
+      },
+      {
+        path: '/users',
+        component: () => import('@/views/user/Users')
+      }
+    ]
   },
 ]
 

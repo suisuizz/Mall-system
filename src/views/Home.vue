@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 23:53:19
+ * @LastEditTime: 2021-08-17 23:40:48
  * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
@@ -25,14 +25,20 @@
 
     <el-container>
       <!-- aside -->
-      <el-aside width="200px">
+      <!-- 三目运算符控制侧边栏宽度 -->
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <!-- 控制显示隐藏 -->
+        <div class="toggle-button" @click="menuCollapse">|||</div>
+        <!-- 导航栏 -->
         <el-menu
           class="el-menu-vertical-demo"
           background-color="#333744"
           text-color="#fff"
           active-text-color="#409EFF"
           :collapse="isCollapse"
+          :collapse-transition="false"
           :default-active="activePath"
+          router
           unique-opened
         >
           <!-- 一级菜单 -->
@@ -51,8 +57,9 @@
             </template>
 
             <!-- 二级菜单 -->
+            <!-- index 于点击 activePath 保持一致-->
             <el-menu-item
-              :index="keys.id + ''"
+              :index="'/' + keys.path"
               v-for="keys in item.children"
               :key="keys.id"
               @click="saveNavStatus('/' + keys.path)"
@@ -134,6 +141,11 @@ export default {
       })
     },
 
+    // 控制侧边栏状态
+    menuCollapse() {
+      this.isCollapse = !this.isCollapse
+    },
+
     // 拿到当前的点击状态
     saveNavStatus(activePath) {
       // 存下方便刷新获取
@@ -176,6 +188,16 @@ export default {
   .el-aside {
     line-height: 200px;
     background-color: #333744;
+
+    .toggle-button {
+      color: #fff;
+      line-height: 24px;
+      font-size: 10px;
+      text-align: center;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      background-color: #999;
+    }
 
     .el-menu {
       border-right: none;
