@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-17 23:40:48
- * @FilePath: \mall-system-gitee\src\views\Home.vue
+ * @LastEditTime: 2021-08-18 09:22:05
+ * @FilePath: \mall-gitee\src\views\Home.vue
 -->
 <template>
   <!-- container -->
@@ -18,7 +18,6 @@
             <span>商城管理系统</span>
           </el-row>
         </el-col>
-        <!-- <el-col :span="1"></el-col> -->
         <el-button type="info" @click="logout">退出</el-button>
       </el-row>
     </el-header>
@@ -75,6 +74,7 @@
           </el-submenu>
         </el-menu>
       </el-aside>
+
       <el-container>
         <!-- main -->
         <el-main><router-view /></el-main>

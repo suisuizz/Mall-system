@@ -1,31 +1,41 @@
 <!--
- * @Descripttion: 
+ * @Descripttion: 面包屑页面
  * @Author: SUI
  * @Date: 2021-08-15 09:23:13
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-17 23:57:12
- * @FilePath: \mall-system-gitee\src\components\common\Bread.Vue
+ * @LastEditTime: 2021-08-18 09:20:26
+ * @FilePath: \mall-gitee\src\components\common\Bread.vue
 -->
 <template>
   <div class="">
-    <div>面包屑</div>
+    <div>首页 / {{ titleText }}</div>
   </div>
 </template>
 
 <script>
-export default {}
-</script>
+export default {
+  name: 'Bread',
 
-<style lang="scss" scoped>
-.welcome {
-  width: 100%;
-  height: 90px;
+  // 父子传值
+  props: {
+    title: {
+      default: true
+    }
+  },
 
-  div {
-    margin-top: 100px;
-    color: #6cf;
-    font-size: 36px;
-    text-align: center;
+  data() {
+    return {
+      titleText: this.title
+    }
+  },
+
+  // 监听值的改变
+  watch: {
+    title(newVal) {
+      this.titleText = newVal
+    }
   }
 }
-</style>
+</script>
+
+<style lang="scss" scoped></style>
