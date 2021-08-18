@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 10:48:26
+ * @LastEditTime: 2021-08-18 22:29:35
  * @FilePath: \mall-system-gitee\src\App.vue
 -->
 <template>
@@ -15,7 +15,8 @@
 
 <style lang="scss">
 // 引入样式
-@import 'assets/index.css';
+@import 'assets/normalize.css';
+@import 'assets/index.scss';
 @import 'assets/common.scss';
 
 #app {

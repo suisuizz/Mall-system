@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-18 09:22:05
- * @FilePath: \mall-gitee\src\views\Home.vue
+ * @LastEditTime: 2021-08-18 22:21:09
+ * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
   <!-- container -->
@@ -136,7 +136,7 @@ export default {
       let that = this
       that.$api.get('menus', that.loginForm, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
-        console.log(res.data)
+        // console.log(res.data)
         that.menuList = res.data
       })
     },

@@ -1,14 +1,19 @@
 <!--
- * @Descripttion: 面包屑页面
+ * @Descripttion: 面包屑组件
  * @Author: SUI
  * @Date: 2021-08-15 09:23:13
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-18 09:20:26
- * @FilePath: \mall-gitee\src\components\common\Bread.vue
+ * @LastEditTime: 2021-08-18 22:31:54
+ * @FilePath: \mall-system-gitee\src\components\common\Bread.vue
 -->
 <template>
-  <div class="">
-    <div>首页 / {{ titleText }}</div>
+  <div class="breadcrumb">
+    <!-- 面包屑组件 -->
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/Welcome' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ breadTitle.one }}</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ breadTitle.two }}</el-breadcrumb-item>
+    </el-breadcrumb>
   </div>
 </template>
 
@@ -25,17 +30,21 @@ export default {
 
   data() {
     return {
-      titleText: this.title
+      breadTitle: this.title
     }
   },
 
   // 监听值的改变
   watch: {
     title(newVal) {
-      this.titleText = newVal
+      this.title = newVal
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.breadcrumb {
+  margin-bottom: 15px;
+}
+</style>

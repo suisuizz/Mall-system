@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 23:54:21
+ * @LastEditTime: 2021-08-18 23:54:00
  * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
@@ -26,11 +26,15 @@ import {
   Menu,
   Submenu,
   MenuItem,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  Pagination,
+  Table,
+  TableColumn,
+  Switch,
 
 
-
-
-  // Pagination,
   // Dialog,
   // Autocomplete,
   // Dropdown,
@@ -44,20 +48,15 @@ import {
   // Checkbox,
   // CheckboxButton,
   // CheckboxGroup,
-  // Switch,
   // Select,
   // Option,
   // OptionGroup,
   // ButtonGroup,
-  // Table,
-  // TableColumn,
   // DatePicker,
   // TimeSelect,
   // TimePicker,
   // Popover,
   // Tooltip,
-  // Breadcrumb,
-  // BreadcrumbItem,
   // Tabs,
   // TabPane,
   // Tag,
@@ -69,7 +68,6 @@ import {
   // Progress,
   // Spinner,
   // Badge,
-  // Card,
   // Rate,
   // Steps,
   // Step,
@@ -94,9 +92,6 @@ import {
   // Notification
 } from 'element-ui';
 
-
-
-
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
@@ -110,13 +105,15 @@ Vue.use(Col);
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
+Vue.use(Card);
+Vue.use(Pagination);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Switch);
 
 
-
-
-
-
-// Vue.use(Pagination);
 // Vue.use(Dialog);
 // Vue.use(Autocomplete);
 // Vue.use(Dropdown);
@@ -130,20 +127,15 @@ Vue.use(MenuItem);
 // Vue.use(Checkbox);
 // Vue.use(CheckboxButton);
 // Vue.use(CheckboxGroup);
-// Vue.use(Switch);
 // Vue.use(Select);
 // Vue.use(Option);
 // Vue.use(OptionGroup);
 // Vue.use(ButtonGroup);
-// Vue.use(Table);
-// Vue.use(TableColumn);
 // Vue.use(DatePicker);
 // Vue.use(TimeSelect);
 // Vue.use(TimePicker);
 // Vue.use(Popover);
 // Vue.use(Tooltip);
-// Vue.use(Breadcrumb);
-// Vue.use(BreadcrumbItem);
 // Vue.use(Tabs);
 // Vue.use(TabPane);
 // Vue.use(Tag);
@@ -155,7 +147,6 @@ Vue.use(MenuItem);
 // Vue.use(Progress);
 // Vue.use(Spinner);
 // Vue.use(Badge);
-// Vue.use(Card);
 // Vue.use(Rate);
 // Vue.use(Steps);
 // Vue.use(Step);
