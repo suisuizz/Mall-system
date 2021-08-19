@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-18 23:56:00
+ * @LastEditTime: 2021-08-19 22:32:38
  * @FilePath: \mall-system-gitee\src\views\user\Users.vue
 -->
 <template>
@@ -49,7 +49,27 @@
             <el-switch v-model="scope.mg_state"></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="primary"
+              icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"
+            ></el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              icon="el-icon-delete"
+              @click="handleDelete(scope.$index, scope.row)"
+            ></el-button>
+            <el-button
+              size="mini"
+              type="warning"
+              icon="el-icon-setting"
+            ></el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <!-- 分页 -->
@@ -135,6 +155,13 @@ export default {
     handleCurrentChange(pagenum) {
       this.queryInfo.pagenum = pagenum
       this.getUserLIst()
+    },
+
+    handleEdit(index, row) {
+      console.log(index, row)
+    },
+    handleDelete(index, row) {
+      console.log(index, row)
     }
   }
 }
