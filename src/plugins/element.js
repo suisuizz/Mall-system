@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-18 23:54:00
+ * @LastEditTime: 2021-08-22 20:20:30
  * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
@@ -33,9 +33,11 @@ import {
   Table,
   TableColumn,
   Switch,
+  Dialog,
+  Select,
+  Option,
 
 
-  // Dialog,
   // Autocomplete,
   // Dropdown,
   // DropdownMenu,
@@ -48,8 +50,6 @@ import {
   // Checkbox,
   // CheckboxButton,
   // CheckboxGroup,
-  // Select,
-  // Option,
   // OptionGroup,
   // ButtonGroup,
   // DatePicker,
@@ -112,9 +112,11 @@ Vue.use(Pagination);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Switch);
+Vue.use(Dialog);
+Vue.use(Select);
+Vue.use(Option);
 
 
-// Vue.use(Dialog);
 // Vue.use(Autocomplete);
 // Vue.use(Dropdown);
 // Vue.use(DropdownMenu);
@@ -127,8 +129,6 @@ Vue.use(Switch);
 // Vue.use(Checkbox);
 // Vue.use(CheckboxButton);
 // Vue.use(CheckboxGroup);
-// Vue.use(Select);
-// Vue.use(Option);
 // Vue.use(OptionGroup);
 // Vue.use(ButtonGroup);
 // Vue.use(DatePicker);

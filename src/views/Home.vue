@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-18 22:21:09
+ * @LastEditTime: 2021-08-22 20:35:53
  * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
@@ -102,7 +102,7 @@ export default {
       // 侧边栏菜单默认不折叠
       isCollapse: false,
       // 被激活的导航地址
-      activePath: ''
+      activePath: '/welcome'
     }
   },
 
@@ -114,21 +114,20 @@ export default {
 
   methods: {
     // 退出登录
-    logout() {
-      this.$confirm('是否退出登录?', '提示', {
-        confirmButtonText: '退出',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-        .then(() => {
-          this.$message.success('退出成功')
-          // 退出就是清空token和重新跳转页面
-          window.sessionStorage.clear()
-          this.$router.push('/login')
+    async logout() {
+      try {
+        await this.$confirm('是否退出登录?', '提示', {
+          confirmButtonText: '退出',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
-        .catch(() => {
-          this.$message.info('取消')
-        })
+        this.$message.success('退出成功')
+        // 退出就是清空token和重新跳转页面
+        window.sessionStorage.clear()
+        this.$router.push('/login')
+      } catch (error) {
+        this.$message.info('取消')
+      }
     },
 
     // 获取 aside 数据

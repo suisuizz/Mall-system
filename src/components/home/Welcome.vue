@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-15 09:23:13
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-16 19:56:33
- * @FilePath: \mall-gitee\src\components\home\Welcome.vue
+ * @LastEditTime: 2021-08-22 20:36:33
+ * @FilePath: \mall-system-gitee\src\components\home\Welcome.vue
 -->
 <template>
   <div class="welcome">
@@ -14,7 +14,15 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {}
+  },
+
+  created() {},
+
+  methods: {}
+}
 </script>
 
 <style lang="scss" scoped>
