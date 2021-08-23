@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-22 20:31:48
+ * @LastEditTime: 2021-08-23 23:49:34
  * @FilePath: \mall-system-gitee\src\views\user\Users.vue
 -->
 <template>
@@ -138,7 +138,7 @@
       title="修改用户"
       width="35%"
       :visible.sync="editDialog"
-      @close="addResetForm('editFormRef')"
+      @close="editDialog = false"
     >
       <el-form ref="editFormRef" :model="editForm" :rules="formRules">
         <el-form-item label="用户名" label-width="75px">

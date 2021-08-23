@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-17 23:43:55
+ * @LastEditTime: 2021-08-23 23:55:57
  * @FilePath: \mall-system-gitee\src\router\index.js
  */
 import Vue from 'vue'
@@ -36,7 +36,15 @@ const routes = [{
       {
         path: '/users',
         component: () => import('@/views/user/Users')
-      }
+      },
+      {
+        path: '/roles',
+        component: () => import('@/views/power/Roles')
+      },
+      {
+        path: '/rights',
+        component: () => import('@/views/power/Rights')
+      },
     ]
   },
 ]
