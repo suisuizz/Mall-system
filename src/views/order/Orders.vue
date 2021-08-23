@@ -1,10 +1,10 @@
 <!--
- * @Descripttion: 角色列表
+ * @Descripttion: 
  * @Author: SUI
- * @Date: 2021-08-23 23:54:42
+ * @Date: 2021-08-24 01:15:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-23 23:54:43
- * @FilePath: \mall-system-gitee\src\views\power\Roles.vue
+ * @LastEditTime: 2021-08-24 01:18:52
+ * @FilePath: \mall-system-gitee\src\views\order\Orders.vue
 -->
 <template>
   <div>
@@ -19,7 +19,7 @@
 // 引入面包屑
 import Bread from '@/components/common/Bread'
 export default {
-  name: 'Roles',
+  name: 'Orders',
   components: {
     Bread
   },
@@ -27,8 +27,8 @@ export default {
     return {
       // 面包屑标题
       breadTitle: {
-        one: '权限管理',
-        two: '角色列表'
+        one: '订单管理',
+        two: '订单列表'
       }
     }
   },

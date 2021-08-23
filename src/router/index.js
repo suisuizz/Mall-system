@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-23 23:55:57
+ * @LastEditTime: 2021-08-24 01:17:29
  * @FilePath: \mall-system-gitee\src\router\index.js
  */
 import Vue from 'vue'
@@ -44,6 +44,30 @@ const routes = [{
       {
         path: '/rights',
         component: () => import('@/views/power/Rights')
+      },
+      {
+        path: '/goods',
+        component: () => import('@/views/goods/Goods')
+      },
+      {
+        path: '/goods/add',
+        component: () => import('@/views/goods/Add')
+      },
+      {
+        path: '/params',
+        component: () => import('@/views/goods/Params')
+      },
+      {
+        path: '/categories',
+        component: () => import('@/views/goods/Cate')
+      },
+      {
+        path: '/orders',
+        component: () => import('@/views/order/Orders')
+      },
+      {
+        path: '/reports',
+        component: () => import('@/views/report/Reports')
       },
     ]
   },
