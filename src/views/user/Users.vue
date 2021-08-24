@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-23 23:49:34
- * @FilePath: \mall-system-gitee\src\views\user\Users.vue
+ * @LastEditTime: 2021-08-24 17:52:19
+ * @FilePath: \mall-gitee\src\views\user\Users.vue
 -->
 <template>
   <div>
@@ -39,7 +39,7 @@
 
       <!-- 表格数据 -->
       <el-table :data="usersList" border stripe>
-        <el-table-column type="index"></el-table-column>
+        <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
@@ -68,12 +68,19 @@
               icon="el-icon-delete"
               @click="removeUserById(scope.row.id)"
             ></el-button>
-            <el-button
-              size="mini"
-              type="warning"
-              icon="el-icon-setting"
-              @click="setRole(scope.row)"
-            ></el-button>
+            <el-tooltip
+              effect="dark"
+              content="分配角色"
+              placement="top"
+              :enterable="false"
+            >
+              <el-button
+                size="mini"
+                type="warning"
+                icon="el-icon-setting"
+                @click="setRole(scope.row)"
+              ></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -288,7 +295,7 @@ export default {
         mobile: ''
       },
 
-      // 添加校验
+      // 表单校验
       formRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -412,7 +419,7 @@ export default {
       // 表单校验
       that.$refs[formName].validate((valid) => {
         if (valid) {
-          // 调用添加用户接口
+          // 调用修改用户接口
           that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
             if (res.meta.status !== 200)
               return that.$message.error('修改用户失败')
@@ -466,7 +473,7 @@ export default {
         that.$message.error('请选择新角色')
         return
       }
-      // 调用 修改用户状态 接口
+      // 调用 保存角色 接口
       let data = {
         rid: selectedRoleId
       }

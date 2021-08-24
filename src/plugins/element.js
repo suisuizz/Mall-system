@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-22 20:20:30
- * @FilePath: \mall-system-gitee\src\plugins\element.js
+ * @LastEditTime: 2021-08-24 17:50:58
+ * @FilePath: \mall-gitee\src\plugins\element.js
  */
 
 import Vue from 'vue';
@@ -36,6 +36,9 @@ import {
   Dialog,
   Select,
   Option,
+  Tag,
+  Tooltip,
+  Tree,
 
 
   // Autocomplete,
@@ -56,11 +59,8 @@ import {
   // TimeSelect,
   // TimePicker,
   // Popover,
-  // Tooltip,
   // Tabs,
   // TabPane,
-  // Tag,
-  // Tree,
   // Alert,
   // Slider,
   // Icon,
@@ -115,6 +115,9 @@ Vue.use(Switch);
 Vue.use(Dialog);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Tag);
+Vue.use(Tooltip);
+Vue.use(Tree);
 
 
 // Vue.use(Autocomplete);
@@ -135,11 +138,8 @@ Vue.use(Option);
 // Vue.use(TimeSelect);
 // Vue.use(TimePicker);
 // Vue.use(Popover);
-// Vue.use(Tooltip);
 // Vue.use(Tabs);
 // Vue.use(TabPane);
-// Vue.use(Tag);
-// Vue.use(Tree);
 // Vue.use(Alert);
 // Vue.use(Slider);
 // Vue.use(Icon);
