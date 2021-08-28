@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-15 09:21:22
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 11:52:39
- * @FilePath: \mall-system-gitee\src\components\Login.vue
+ * @LastEditTime: 2021-08-28 16:02:43
+ * @FilePath: \mall-system-gitee\src\components\home\Login.vue
 -->
 <template>
   <div class="login_container">
@@ -16,37 +16,21 @@
       </div>
 
       <!-- 登录信息表单 -->
-      <el-form
-        :model="loginForm"
-        :rules="inputFormRules"
-        ref="loginForm"
-        class="login_form"
-      >
+      <el-form :model="loginForm" :rules="inputFormRules" ref="loginForm" class="login_form">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input
-            prefix-icon="el-icon-user-solid"
-            v-model="loginForm.username"
-          ></el-input>
+          <el-input prefix-icon="el-icon-user-solid" v-model="loginForm.username"></el-input>
         </el-form-item>
 
         <!-- 密码框 -->
         <el-form-item prop="password">
-          <el-input
-            prefix-icon="el-icon-lock"
-            type="password"
-            v-model="loginForm.password"
-          ></el-input>
+          <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password"></el-input>
         </el-form-item>
 
         <!-- 操作 -->
         <el-form-item class="btns">
-          <el-button type="primary" @click="submitForm('loginForm')"
-            >登录</el-button
-          >
-          <el-button type="info" @click="resetForm('loginForm')"
-            >重置</el-button
-          >
+          <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+          <el-button type="info" @click="resetForm('loginForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -83,12 +67,11 @@ export default {
     submitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate((valid) => {
+      that.$refs[formName].validate(valid => {
         if (valid) {
           // 调用登录接口
-          that.$api.post('login', that.loginForm, (res) => {
-            if (res.meta.status !== 200)
-              return that.$message.error(res.meta.msg)
+          that.$api.post('login', that.loginForm, res => {
+            if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
             // 将客户端登陆成功以后的token存储到sessionStorage中，token只在网页打开期间生效，除登陆外的api请求都需要携带token
             window.sessionStorage.setItem('token', res.data.token)
             this.$message.success('登陆成功！')

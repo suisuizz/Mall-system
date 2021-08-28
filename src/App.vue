@@ -20,8 +20,7 @@
 @import 'assets/common.scss';
 
 #app {
-  font: 12px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB,
-    '\5B8B\4F53', sans-serif;
+  font: 12px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, '\5B8B\4F53', sans-serif;
   color: #333;
   // width: 100%;
   height: 100%;

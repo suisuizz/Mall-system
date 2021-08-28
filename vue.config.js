@@ -1,4 +1,13 @@
+/*
+ * @Descripttion: 
+ * @Author: SUI
+ * @Date: 2021-08-15 09:02:21
+ * @LastEditors: SUI
+ * @LastEditTime: 2021-08-28 11:50:33
+ * @FilePath: \mall-system-gitee\vue.config.js
+ */
 module.exports = {
+	lintOnSave: false,
 	productionSourceMap: false,
 	// devServer: {
 	// 	proxy: {

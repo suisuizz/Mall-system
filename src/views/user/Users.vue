@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-24 17:52:19
- * @FilePath: \mall-gitee\src\views\user\Users.vue
+ * @LastEditTime: 2021-08-28 16:00:55
+ * @FilePath: \mall-system-gitee\src\views\user\Users.vue
 -->
 <template>
   <div>
@@ -16,24 +16,13 @@
       <!-- 搜索和添加 -->
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-input
-            placeholder="请输入内容"
-            v-model="queryInfo.query"
-            clearable
-            @clear="getUserLIst"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="getUserLIst"
-            ></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserLIst">
+            <el-button slot="append" icon="el-icon-search" @click="getUserLIst"></el-button>
           </el-input>
         </el-col>
         <!-- 添加用户 -->
         <el-col :span="4">
-          <el-button type="primary" @click="addDialog = true"
-            >添加用户</el-button
-          >
+          <el-button type="primary" @click="addDialog = true">添加用户</el-button>
         </el-col>
       </el-row>
 
@@ -47,39 +36,15 @@
         <el-table-column label="状态" prop="mg_state">
           <!-- {{ scope.row}}通过作用域插槽 slot-scope 拿到作用域的数据，然后scope.row拿到这一行的数据  -->
           <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.mg_state"
-              @change="userStateChanged(scope.row)"
-            >
-            </el-switch>
+            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"> </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="primary"
-              icon="el-icon-edit"
-              @click="showEditDialog(scope.row.id)"
-            ></el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              icon="el-icon-delete"
-              @click="removeUserById(scope.row.id)"
-            ></el-button>
-            <el-tooltip
-              effect="dark"
-              content="分配角色"
-              placement="top"
-              :enterable="false"
-            >
-              <el-button
-                size="mini"
-                type="warning"
-                icon="el-icon-setting"
-                @click="setRole(scope.row)"
-              ></el-button>
+            <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.id)"></el-button>
+            <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeUserById(scope.row.id)"></el-button>
+            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
+              <el-button size="mini" type="warning" icon="el-icon-setting" @click="setRole(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -99,114 +64,63 @@
     </el-card>
 
     <!-- 添加用户 -->
-    <el-dialog
-      title="添加用户"
-      width="35%"
-      :visible.sync="addDialog"
-      @close="addResetForm('addFormRef')"
-    >
+    <el-dialog title="添加用户" width="35%" :visible.sync="addDialog" @close="addResetForm('addFormRef')">
       <el-form ref="addFormRef" :model="addForm" :rules="formRules">
         <!-- prop="username"  校验 -->
         <el-form-item prop="username" label="用户名" label-width="75px">
           <el-input v-model="addForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="password" label="密码" label-width="75px">
-          <el-input
-            type="password"
-            v-model="addForm.password"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="password" v-model="addForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="email" label="邮箱" label-width="75px">
-          <el-input
-            type="email"
-            v-model="addForm.email"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="email" v-model="addForm.email" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号" label-width="75px">
-          <el-input
-            type="tel"
-            v-model="addForm.mobile"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="tel" v-model="addForm.mobile" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addResetForm('addFormRef')">取 消</el-button>
-        <el-button type="primary" @click="addSubmitForm('addFormRef')"
-          >添 加</el-button
-        >
+        <el-button type="primary" @click="addSubmitForm('addFormRef')">添 加</el-button>
       </div>
     </el-dialog>
 
     <!-- 修改用户 -->
-    <el-dialog
-      title="修改用户"
-      width="35%"
-      :visible.sync="editDialog"
-      @close="editDialog = false"
-    >
+    <el-dialog title="修改用户" width="35%" :visible.sync="editDialog" @close="editDialog = false">
       <el-form ref="editFormRef" :model="editForm" :rules="formRules">
         <el-form-item label="用户名" label-width="75px">
-          <el-input
-            v-model="editForm.username"
-            autocomplete="off"
-            disabled
-          ></el-input>
+          <el-input v-model="editForm.username" autocomplete="off" disabled></el-input>
         </el-form-item>
         <!-- prop="username"  校验 -->
         <el-form-item prop="email" label="邮箱" label-width="75px">
-          <el-input
-            type="email"
-            v-model="editForm.email"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="email" v-model="editForm.email" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号" label-width="75px">
-          <el-input
-            type="tel"
-            v-model="editForm.mobile"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="tel" v-model="editForm.mobile" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="editDialog = false">取 消</el-button>
-        <el-button type="primary" @click="editSubmitForm('editFormRef')"
-          >添 加</el-button
-        >
+        <el-button type="primary" @click="editSubmitForm('editFormRef')">添 加</el-button>
       </div>
     </el-dialog>
 
     <!-- 分配角色 -->
-    <el-dialog
-      title="分配角色"
-      width="35%"
-      :visible.sync="setRoleRightDialog"
-      @close="setDialogClosed"
-    >
+    <el-dialog title="分配角色" width="35%" :visible.sync="setRoleRightDialog" @close="setDialogClosed">
       <div>
         <p>当前用户名：{{ userInfo.username }}</p>
         <p style="margin: 30px 0">当前角色：{{ userInfo.role_name }}</p>
         <p>
           分配新角色：
           <el-select v-model="selectedRoleId" placeholder="请选择">
-            <el-option
-              v-for="item in rolesList"
-              :key="item.id"
-              :label="item.roleName"
-              :value="item.id"
-            >
-            </el-option>
+            <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id"> </el-option>
           </el-select>
         </p>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="setRoleRightDialog = false">取 消</el-button>
-        <el-button type="primary" @click="saveRoleInfo(selectedRoleId)"
-          >添 加</el-button
-        >
+        <el-button type="primary" @click="saveRoleInfo(selectedRoleId)">添 加</el-button>
       </div>
     </el-dialog>
   </div>
@@ -334,7 +248,7 @@ export default {
     // 获取用户列表
     getUserLIst() {
       let that = this
-      that.$api.get('users', that.queryInfo, (res) => {
+      that.$api.get('users', that.queryInfo, res => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取用户数据成功')
         // console.log(res.data)
@@ -360,13 +274,12 @@ export default {
     addSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate((valid) => {
+      that.$refs[formName].validate(valid => {
         if (valid) {
           // console.log(that.addForm)
           // 调用添加用户接口
-          that.$api.post('users', that.addForm, (res) => {
-            if (res.meta.status !== 201)
-              return that.$message.error('用户创建失败')
+          that.$api.post('users', that.addForm, res => {
+            if (res.meta.status !== 201) return that.$message.error('用户创建失败')
             that.$message.success('用户创建成功')
             that.addDialog = false
             that.getUserLIst()
@@ -390,22 +303,17 @@ export default {
     userStateChanged(userInfo) {
       let that = this
       // 调用 修改用户状态 接口
-      that.$api.put(
-        `users/${userInfo.id}/state/${userInfo.mg_state}`,
-        {},
-        (res) => {
-          if (res.meta.status !== 200)
-            return that.$message.error('设置状态失败')
-          that.$message.success('设置状态成功')
-        }
-      )
+      that.$api.put(`users/${userInfo.id}/state/${userInfo.mg_state}`, {}, res => {
+        if (res.meta.status !== 200) return that.$message.error('设置状态失败')
+        that.$message.success('设置状态成功')
+      })
     },
 
     // 展示修改弹框
     showEditDialog(userId) {
       let that = this
       // 根据 ID 查询用户信息
-      that.$api.get(`users/${userId}`, {}, (res) => {
+      that.$api.get(`users/${userId}`, {}, res => {
         if (res.meta.status !== 200) return that.$message.error('查询信息失败')
         that.$message.success('查询信息成功')
         that.editForm = res.data
@@ -417,12 +325,11 @@ export default {
     editSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate((valid) => {
+      that.$refs[formName].validate(valid => {
         if (valid) {
           // 调用修改用户接口
-          that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
-            if (res.meta.status !== 200)
-              return that.$message.error('修改用户失败')
+          that.$api.put(`users/${that.editForm.id}`, that.editForm, res => {
+            if (res.meta.status !== 200) return that.$message.error('修改用户失败')
             that.$message.success('修改用户成功')
             that.editDialog = false
             that.getUserLIst()
@@ -442,7 +349,7 @@ export default {
         })
 
         // 根据 ID 删除用户
-        that.$api.delete(`users/${userId}`, {}, (res) => {
+        that.$api.delete(`users/${userId}`, {}, res => {
           if (res.meta.status !== 200) return that.$message.error('删除失败')
           that.$message.success('删除成功')
           that.getUserLIst()
@@ -457,9 +364,8 @@ export default {
       let that = this
       that.userInfo = userInfo
       // 获取角色列表
-      that.$api.get(`roles`, {}, (res) => {
-        if (res.meta.status !== 200)
-          return that.$message.error('获取角色列表失败')
+      that.$api.get(`roles`, {}, res => {
+        if (res.meta.status !== 200) return that.$message.error('获取角色列表失败')
         that.$message.success('获取角色列表成功')
         that.rolesList = res.data
         that.setRoleRightDialog = true
@@ -477,7 +383,7 @@ export default {
       let data = {
         rid: selectedRoleId
       }
-      that.$api.put(`users/${that.userInfo.id}/role`, data, (res) => {
+      that.$api.put(`users/${that.userInfo.id}/role`, data, res => {
         if (res.meta.status !== 200) return that.$message.error('设置角色失败')
         that.$message.success('设置角色成功')
         that.getUserLIst()

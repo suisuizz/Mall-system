@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 09:23:13
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-22 20:36:33
+ * @LastEditTime: 2021-08-28 16:00:36
  * @FilePath: \mall-system-gitee\src\components\home\Welcome.vue
 -->
 <template>

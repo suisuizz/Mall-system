@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-22 20:35:53
+ * @LastEditTime: 2021-08-28 16:01:04
  * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
@@ -42,11 +42,7 @@
         >
           <!-- 一级菜单 -->
           <!-- index 是字符串类型  且唯一性 -->
-          <el-submenu
-            :index="item.id + ''"
-            v-for="item in menuList"
-            :key="item.id"
-          >
+          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
             <!-- 一级菜单模板区域 -->
             <template slot="title">
               <!-- icon -->
@@ -57,12 +53,7 @@
 
             <!-- 二级菜单 -->
             <!-- index 于点击 activePath 保持一致-->
-            <el-menu-item
-              :index="'/' + keys.path"
-              v-for="keys in item.children"
-              :key="keys.id"
-              @click="saveNavStatus('/' + keys.path)"
-            >
+            <el-menu-item :index="'/' + keys.path" v-for="keys in item.children" :key="keys.id" @click="saveNavStatus('/' + keys.path)">
               <!-- 二级菜单模板区域 -->
               <template slot="title">
                 <!-- icon -->
@@ -133,7 +124,7 @@ export default {
     // 获取 aside 数据
     getMenuList() {
       let that = this
-      that.$api.get('menus', that.loginForm, (res) => {
+      that.$api.get('menus', that.loginForm, res => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         // console.log(res.data)
         that.menuList = res.data
