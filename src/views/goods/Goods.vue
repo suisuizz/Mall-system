@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:11:35
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-24 01:21:55
+ * @LastEditTime: 2021-08-28 22:47:44
  * @FilePath: \mall-system-gitee\src\views\goods\goods.vue
 -->
 <template>
@@ -12,7 +12,53 @@
     <Bread :title="breadTitle"></Bread>
 
     <!-- 内容展示卡片 -->
-    <el-card class="box-card"> </el-card>
+    <el-card class="box-card">
+      <!-- 搜索和添加 -->
+      <el-row :gutter="20">
+        <!-- 搜索 -->
+        <el-col :span="12">
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
+            <el-button slot="append" icon="el-icon-search" @click="getGoodsList"></el-button>
+          </el-input>
+        </el-col>
+        <!-- 添加商品 -->
+        <el-col :span="4">
+          <el-button type="primary" @click="addGoods">添加商品</el-button>
+        </el-col>
+      </el-row>
+
+      <!-- 表格数据 -->
+      <el-table :data="goodsList" border stripe>
+        <el-table-column type="index" label="#"></el-table-column>
+        <el-table-column label="商品名称" prop="goods_name"></el-table-column>
+        <el-table-column label="商品价格（元）" prop="goods_price" width="100px"></el-table-column>
+        <el-table-column label="商品重量" prop="goods_weight" width="100px"></el-table-column>
+        <el-table-column label="创建时间" prop="add_time" width="190px">
+          <!-- 转换 -->
+          <template slot-scope="scope">
+            {{ scope.row.add_time | dateFormat }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="150px">
+          <template slot-scope="scope">
+            <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.goods_id)"></el-button>
+            <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeUserById(scope.row.goods_id)"></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="queryInfo.pagenum"
+        :page-sizes="[5, 10, 20, 30]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totalpage"
+      >
+      </el-pagination>
+    </el-card>
   </div>
 </template>
 <script>
@@ -29,14 +75,95 @@ export default {
       breadTitle: {
         one: '商品管理',
         two: '商品列表'
-      }
+      },
+
+      // 请求参数
+      queryInfo: {
+        // 查询参数
+        query: '',
+        // 当前页数
+        pagenum: 1,
+        // 每页显示条数
+        pagesize: 10
+      },
+      // 商品列表数据
+      goodsList: [],
+      // 商品总数
+      totalpage: 0
     }
   },
 
-  created() {},
+  created() {
+    // 获取商品数据
+    this.getGoodsList()
+  },
 
-  methods: {}
+  methods: {
+    // 获取商品列表数据
+    getGoodsList() {
+      let that = this
+      that.$api.get('goods', that.queryInfo, res => {
+        if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
+        that.$message.success('获取商品列表数据成功')
+        // console.log(res.data)
+        // 当前页数
+        that.queryInfo.pagenum = res.data.pagenum * 1
+        // 商品总数
+        that.totalpage = res.data.total
+        // 商品列表
+        that.goodsList = res.data.goods
+      })
+    },
+
+    // 监听分页 改变条数
+    handleSizeChange(pagesize) {
+      console.log(pagesize)
+      this.queryInfo.pagesize = pagesize
+      this.getGoodsList()
+    },
+
+    // 监听分页 改变页数
+    handleCurrentChange(pagenum) {
+      this.queryInfo.pagenum = pagenum
+      this.getGoodsList()
+    },
+
+    // 添加商品
+    addGoods() {
+      console.log('添加商品')
+    },
+
+    // 显示编辑框
+    showEditDialog(id) {
+      console.log(id)
+    },
+
+    // 删除商品
+    async removeUserById(id) {
+      let that = this
+      try {
+        await that.$confirm('是否删除商品?', '提示', {
+          confirmButtonText: '删除',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+
+        // 根据 ID 删除用户
+        that.$api.delete(`goods/${id}`, {}, res => {
+          if (res.meta.status !== 200) return that.$message.error('删除失败')
+          that.$message.success('删除成功')
+          that.getGoodsList()
+        })
+      } catch (error) {
+        that.$message.info('取消')
+      }
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-table {
+  margin-top: 15px;
+}
+</style>

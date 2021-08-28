@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 16:00:55
+ * @LastEditTime: 2021-08-28 21:42:25
  * @FilePath: \mall-system-gitee\src\views\user\Users.vue
 -->
 <template>
@@ -252,9 +252,12 @@ export default {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取用户数据成功')
         // console.log(res.data)
-        that.usersList = res.data.users
-        that.totalpage = res.data.total
+        // 当前页数
         that.queryInfo.pagenum = res.data.pagenum
+        // 用户总数
+        that.totalpage = res.data.total
+        // 用户列表
+        that.usersList = res.data.users
       })
     },
 

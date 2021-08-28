@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 20:31:08
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 16:47:41
+ * @LastEditTime: 2021-08-28 22:12:35
  * @FilePath: \mall-system-gitee\src\main.js
  */
 import Vue from 'vue'
@@ -29,6 +29,22 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   }
   next();
+})
+
+//定义一个全局的时间过滤器
+Vue.filter('dateFormat', function (originValue) {
+  const dt = new Date(originValue)
+  const y = dt.getFullYear()
+  //getMonth方法获取的月份从0开始，所以需要加1.
+  // padStart方法是字符串方法，所以需要拼接。第一个参数是检测的位数
+  // 不满足就用第二个参数填充
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  const d = (dt.getDate() + '').padStart(2, '0')
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 })
 
 new Vue({
