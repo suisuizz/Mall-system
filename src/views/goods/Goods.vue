@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:11:35
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 22:47:44
+ * @LastEditTime: 2021-08-29 10:37:59
  * @FilePath: \mall-system-gitee\src\views\goods\goods.vue
 -->
 <template>
@@ -42,7 +42,7 @@
         <el-table-column label="操作" width="150px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDialog(scope.row.goods_id)"></el-button>
-            <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeUserById(scope.row.goods_id)"></el-button>
+            <el-button size="mini" type="danger" icon="el-icon-delete" @click="removeGoodsById(scope.row.goods_id)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -139,7 +139,7 @@ export default {
     },
 
     // 删除商品
-    async removeUserById(id) {
+    async removeGoodsById(id) {
       let that = this
       try {
         await that.$confirm('是否删除商品?', '提示', {

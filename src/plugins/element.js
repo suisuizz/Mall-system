@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-24 17:50:58
- * @FilePath: \mall-gitee\src\plugins\element.js
+ * @LastEditTime: 2021-08-29 12:51:59
+ * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
 import Vue from 'vue';
@@ -39,6 +39,7 @@ import {
   Tag,
   Tooltip,
   Tree,
+  Cascader,
 
 
   // Autocomplete,
@@ -75,7 +76,6 @@ import {
   // CarouselItem,
   // Collapse,
   // CollapseItem,
-  // Cascader,
   // ColorPicker,
   // Transfer,
   // Footer,
@@ -118,6 +118,7 @@ Vue.use(Option);
 Vue.use(Tag);
 Vue.use(Tooltip);
 Vue.use(Tree);
+Vue.use(Cascader);
 
 
 // Vue.use(Autocomplete);
@@ -154,7 +155,6 @@ Vue.use(Tree);
 // Vue.use(CarouselItem);
 // Vue.use(Collapse);
 // Vue.use(CollapseItem);
-// Vue.use(Cascader);
 // Vue.use(ColorPicker);
 // Vue.use(Transfer);
 // Vue.use(Footer);

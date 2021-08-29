@@ -3,11 +3,12 @@
  * @Author: SUI
  * @Date: 2021-08-15 10:58:17
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-15 16:47:57
+ * @LastEditTime: 2021-08-29 13:54:44
  * @FilePath: \mall-system-gitee\src\api\index.js
  */
 // 配置API接口地址
 let root = "http://www.ysqorz.top:8888/api/private/v1/";
+// let root = "http://timemeetyou.com:8889/api/private/v1/";
 // 引用 axios
 let axios = require("axios");
 // 倒入 nprogress 包对应的js和css文件
@@ -16,12 +17,11 @@ import NProgress from 'nprogress'
 
 // axios的请求根路径
 axios.defaults.baseURL = 'http://www.ysqorz.top:8888/api/private/v1/' // 设置路由访问
+// axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/' // 设置路由访问
 axios.interceptors.request.use(config => {
-  // if (window.sessionStorage.getItem("token")) {
   // 在请求拦截器中打开进度条
   NProgress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')
-  // }
   return config
 })
 axios.interceptors.response.use(config => {
