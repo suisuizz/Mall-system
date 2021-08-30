@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-29 12:51:59
+ * @LastEditTime: 2021-08-30 22:11:28
  * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
@@ -40,6 +40,9 @@ import {
   Tooltip,
   Tree,
   Cascader,
+  Alert,
+  Tabs,
+  TabPane,
 
 
   // Autocomplete,
@@ -60,9 +63,6 @@ import {
   // TimeSelect,
   // TimePicker,
   // Popover,
-  // Tabs,
-  // TabPane,
-  // Alert,
   // Slider,
   // Icon,
   // Upload,
@@ -119,6 +119,9 @@ Vue.use(Tag);
 Vue.use(Tooltip);
 Vue.use(Tree);
 Vue.use(Cascader);
+Vue.use(Alert);
+Vue.use(Tabs);
+Vue.use(TabPane);
 
 
 // Vue.use(Autocomplete);
@@ -139,9 +142,6 @@ Vue.use(Cascader);
 // Vue.use(TimeSelect);
 // Vue.use(TimePicker);
 // Vue.use(Popover);
-// Vue.use(Tabs);
-// Vue.use(TabPane);
-// Vue.use(Alert);
 // Vue.use(Slider);
 // Vue.use(Icon);
 // Vue.use(Upload);
@@ -172,11 +172,11 @@ Vue.use(Cascader);
 
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm;
+// Vue.prototype.$alert = MessageBox.alert;
 
 
 
 // Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;
-// Vue.prototype.$alert = MessageBox.alert;
 // Vue.prototype.$prompt = MessageBox.prompt;
 // Vue.prototype.$notify = Notification;

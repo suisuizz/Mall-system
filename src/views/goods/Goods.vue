@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:11:35
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-29 10:37:59
+ * @LastEditTime: 2021-08-30 21:49:08
  * @FilePath: \mall-system-gitee\src\views\goods\goods.vue
 -->
 <template>
@@ -102,7 +102,7 @@ export default {
     // 获取商品列表数据
     getGoodsList() {
       let that = this
-      that.$api.get('goods', that.queryInfo, res => {
+      that.$api.get('goods', that.queryInfo, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取商品列表数据成功')
         // console.log(res.data)
@@ -149,7 +149,7 @@ export default {
         })
 
         // 根据 ID 删除用户
-        that.$api.delete(`goods/${id}`, {}, res => {
+        that.$api.delete(`goods/${id}`, {}, (res) => {
           if (res.meta.status !== 200) return that.$message.error('删除失败')
           that.$message.success('删除成功')
           that.getGoodsList()

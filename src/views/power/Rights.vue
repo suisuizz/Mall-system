@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-23 23:54:53
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 16:02:06
+ * @LastEditTime: 2021-08-30 21:49:24
  * @FilePath: \mall-system-gitee\src\views\power\Rights.vue
 -->
 <template>
@@ -63,7 +63,7 @@ export default {
     getRightsList() {
       let that = this
       // 所有权限列表  列表显示权限
-      that.$api.get('rights/list', {}, res => {
+      that.$api.get('rights/list', {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('获取权限列表失败')
         that.$message.success('获取权限列表成功')
         that.rightsList = res.data

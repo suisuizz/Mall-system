@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 09:21:22
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 16:02:43
+ * @LastEditTime: 2021-08-30 21:48:38
  * @FilePath: \mall-system-gitee\src\components\home\Login.vue
 -->
 <template>
@@ -67,10 +67,10 @@ export default {
     submitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // 调用登录接口
-          that.$api.post('login', that.loginForm, res => {
+          that.$api.post('login', that.loginForm, (res) => {
             if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
             // 将客户端登陆成功以后的token存储到sessionStorage中，token只在网页打开期间生效，除登陆外的api请求都需要携带token
             window.sessionStorage.setItem('token', res.data.token)

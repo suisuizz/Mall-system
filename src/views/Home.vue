@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 12:41:02
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 16:01:04
+ * @LastEditTime: 2021-08-30 21:49:39
  * @FilePath: \mall-system-gitee\src\views\Home.vue
 -->
 <template>
@@ -124,7 +124,7 @@ export default {
     // 获取 aside 数据
     getMenuList() {
       let that = this
-      that.$api.get('menus', that.loginForm, res => {
+      that.$api.get('menus', that.loginForm, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         // console.log(res.data)
         that.menuList = res.data

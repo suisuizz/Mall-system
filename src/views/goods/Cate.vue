@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:14:00
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-29 14:22:44
+ * @LastEditTime: 2021-08-30 21:48:05
  * @FilePath: \mall-system-gitee\src\views\goods\Cate.vue
 -->
 <template>
@@ -197,7 +197,7 @@ export default {
     // 获取商品分类数据
     getCatesList() {
       let that = this
-      that.$api.get('categories', that.queryInfo, res => {
+      that.$api.get('categories', that.queryInfo, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取分类数据成功')
         // console.log(res.data)
@@ -226,7 +226,7 @@ export default {
     addGoods() {
       let that = this
       that.addDialog = true
-      that.$api.get('categories', { type: 2 }, res => {
+      that.$api.get('categories', { type: 2 }, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         // that.$message.success('获取分类数据成功')
         // 父级分类列表
@@ -252,11 +252,11 @@ export default {
     addSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(that.addForm)
           // 调用添加分类接口
-          that.$api.post('categories', that.addForm, res => {
+          that.$api.post('categories', that.addForm, (res) => {
             if (res.meta.status !== 201) return that.$message.error('创建失败')
             that.$message.success('创建成功')
             that.getCatesList()
@@ -281,7 +281,7 @@ export default {
     // 显示编辑框
     showEditDialog(cate) {
       let that = this
-      that.$api.get(`categories/${cate.cat_id}`, {}, res => {
+      that.$api.get(`categories/${cate.cat_id}`, {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('查询分类名称失败')
         that.$message.success('查询分类名称成功')
         // console.log(res.data)
@@ -294,10 +294,10 @@ export default {
     editCate(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // 调用添加分类接口
-          that.$api.put(`categories/${that.editForm.cat_id}`, that.editForm, res => {
+          that.$api.put(`categories/${that.editForm.cat_id}`, that.editForm, (res) => {
             if (res.meta.status !== 200) return that.$message.error('更新失败')
             that.$message.success('更新成功')
             that.getCatesList()
@@ -328,7 +328,7 @@ export default {
         })
 
         // 根据 ID 删除用户
-        that.$api.delete(`categories/${cate.cat_id}`, {}, res => {
+        that.$api.delete(`categories/${cate.cat_id}`, {}, (res) => {
           if (res.meta.status !== 200) return that.$message.error('删除失败')
           that.$message.success('删除成功')
           that.getCatesList()

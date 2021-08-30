@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-23 23:54:42
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 18:26:58
+ * @LastEditTime: 2021-08-30 21:49:29
  * @FilePath: \mall-system-gitee\src\views\power\Roles.vue
 -->
 <template>
@@ -182,7 +182,7 @@ export default {
     getRolesList() {
       let that = this
       // 所有角色列表
-      that.$api.get('roles', {}, res => {
+      that.$api.get('roles', {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('获取角色列表失败')
         that.$message.success('获取角色列表成功')
         that.rolesList = res.data
@@ -200,7 +200,7 @@ export default {
         })
 
         // 删除角色指定权限
-        that.$api.delete(`roles/${role.id}/rights/${rightId}`, {}, res => {
+        that.$api.delete(`roles/${role.id}/rights/${rightId}`, {}, (res) => {
           if (res.meta.status !== 200) return that.$message.error('取消权限失败')
           that.$message.success('取消权限成功')
           // 为了不重新渲染页面直接更新行
@@ -215,11 +215,11 @@ export default {
     addSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // console.log(that.addForm)
           // 调用添加角色接口
-          that.$api.post('roles', that.addForm, res => {
+          that.$api.post('roles', that.addForm, (res) => {
             if (res.meta.status !== 201) return that.$message.error('添加角色失败')
             that.$message.success('添加角色成功')
             that.addDialog = false
@@ -242,7 +242,7 @@ export default {
     showEditDialog(userId) {
       let that = this
       // 根据 ID 查询角色信息
-      that.$api.get(`roles/${userId}`, {}, res => {
+      that.$api.get(`roles/${userId}`, {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('查询信息失败')
         that.$message.success('查询信息成功')
         that.editForm = res.data
@@ -254,10 +254,10 @@ export default {
     editSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // 调用编辑角色接口
-          that.$api.put(`roles/${that.editForm.roleId}`, that.editForm, res => {
+          that.$api.put(`roles/${that.editForm.roleId}`, that.editForm, (res) => {
             if (res.meta.status !== 200) return that.$message.error('修改用户失败')
             that.$message.success('修改用户成功')
             that.editDialog = false
@@ -278,7 +278,7 @@ export default {
         })
 
         // 根据 ID 删除角色
-        that.$api.delete(`roles/${userId}`, {}, res => {
+        that.$api.delete(`roles/${userId}`, {}, (res) => {
           if (res.meta.status !== 200) return that.$message.error('删除失败')
           that.$message.success('删除成功')
           that.getRolesList()
@@ -294,7 +294,7 @@ export default {
       // console.log(userInfo)
       // 角色的ID
       that.roleId = userInfo.id
-      that.$api.get('rights/tree', {}, res => {
+      that.$api.get('rights/tree', {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('获取权限列表失败')
         that.$message.success('获取权限列表成功')
         that.rightsList = res.data
@@ -313,7 +313,7 @@ export default {
         return arr.push(node.id)
       }
 
-      node.children.forEach(item => {
+      node.children.forEach((item) => {
         that.getLeafKeys(item, arr)
       })
     },
@@ -333,7 +333,7 @@ export default {
       let data = {
         rids: ridsIdStr
       }
-      that.$api.post(`roles/${that.roleId}/rights`, data, res => {
+      that.$api.post(`roles/${that.roleId}/rights`, data, (res) => {
         if (res.meta.status !== 200) return that.$message.error('角色授权失败')
         that.$message.success('角色授权成功')
         that.getRolesList()

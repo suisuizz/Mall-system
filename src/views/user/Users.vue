@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-17 23:41:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-28 21:42:25
+ * @LastEditTime: 2021-08-30 21:49:54
  * @FilePath: \mall-system-gitee\src\views\user\Users.vue
 -->
 <template>
@@ -248,7 +248,7 @@ export default {
     // 获取用户列表
     getUserLIst() {
       let that = this
-      that.$api.get('users', that.queryInfo, res => {
+      that.$api.get('users', that.queryInfo, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取用户数据成功')
         // console.log(res.data)
@@ -277,11 +277,11 @@ export default {
     addSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // console.log(that.addForm)
           // 调用添加用户接口
-          that.$api.post('users', that.addForm, res => {
+          that.$api.post('users', that.addForm, (res) => {
             if (res.meta.status !== 201) return that.$message.error('用户创建失败')
             that.$message.success('用户创建成功')
             that.addDialog = false
@@ -306,7 +306,7 @@ export default {
     userStateChanged(userInfo) {
       let that = this
       // 调用 修改用户状态 接口
-      that.$api.put(`users/${userInfo.id}/state/${userInfo.mg_state}`, {}, res => {
+      that.$api.put(`users/${userInfo.id}/state/${userInfo.mg_state}`, {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('设置状态失败')
         that.$message.success('设置状态成功')
       })
@@ -316,7 +316,7 @@ export default {
     showEditDialog(userId) {
       let that = this
       // 根据 ID 查询用户信息
-      that.$api.get(`users/${userId}`, {}, res => {
+      that.$api.get(`users/${userId}`, {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('查询信息失败')
         that.$message.success('查询信息成功')
         that.editForm = res.data
@@ -328,10 +328,10 @@ export default {
     editSubmitForm(formName) {
       let that = this
       // 表单校验
-      that.$refs[formName].validate(valid => {
+      that.$refs[formName].validate((valid) => {
         if (valid) {
           // 调用修改用户接口
-          that.$api.put(`users/${that.editForm.id}`, that.editForm, res => {
+          that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
             if (res.meta.status !== 200) return that.$message.error('修改用户失败')
             that.$message.success('修改用户成功')
             that.editDialog = false
@@ -352,7 +352,7 @@ export default {
         })
 
         // 根据 ID 删除用户
-        that.$api.delete(`users/${userId}`, {}, res => {
+        that.$api.delete(`users/${userId}`, {}, (res) => {
           if (res.meta.status !== 200) return that.$message.error('删除失败')
           that.$message.success('删除成功')
           that.getUserLIst()
@@ -367,7 +367,7 @@ export default {
       let that = this
       that.userInfo = userInfo
       // 获取角色列表
-      that.$api.get(`roles`, {}, res => {
+      that.$api.get(`roles`, {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error('获取角色列表失败')
         that.$message.success('获取角色列表成功')
         that.rolesList = res.data
@@ -386,7 +386,7 @@ export default {
       let data = {
         rid: selectedRoleId
       }
-      that.$api.put(`users/${that.userInfo.id}/role`, data, res => {
+      that.$api.put(`users/${that.userInfo.id}/role`, data, (res) => {
         if (res.meta.status !== 200) return that.$message.error('设置角色失败')
         that.$message.success('设置角色成功')
         that.getUserLIst()
