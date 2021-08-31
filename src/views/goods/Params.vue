@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:12:12
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-30 23:36:10
+ * @LastEditTime: 2021-08-31 23:56:16
  * @FilePath: \mall-system-gitee\src\views\goods\Params.vue
 -->
 <template>
@@ -38,7 +38,7 @@
       </el-tabs>
 
       <!-- 添加按钮 -->
-      <el-button type="primary" size="mini" :disabled="values.length === 3 ? false : true">添加参数</el-button>
+      <el-button type="primary" size="mini" :disabled="values.length === 3 ? false : true" @click="dialogVisible = true">添加参数</el-button>
 
       <!-- 数据展示 -->
       <el-table :data="tableData" border stripe>
@@ -69,6 +69,32 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 添加按钮的对话框 -->
+      <el-dialog :title="`添加${activeName === 'many' ? '动态参数' : '静态属性'}`" :visible.sync="dialogVisible" width="35%" @close="addDialogClosed">
+        <el-form :model="addForm" :rules="rules" ref="addFormRef" label-width="80px">
+          <el-form-item :label="activeName === 'many' ? '动态参数' : '静态属性'" prop="attr_name">
+            <el-input v-model="addForm.attr_name"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addParams('addFormRef')">确 定</el-button>
+        </span>
+      </el-dialog>
+
+      <!-- 编辑按钮的对话框 -->
+      <el-dialog :title="`修改${activeName === 'many' ? '动态参数' : '静态属性'}`" :visible.sync="editDialogVisible" width="35%" @close="editDialogClosed">
+        <el-form :model="editForm" :rules="rules" ref="editFormRef" label-width="80px">
+          <el-form-item :label="activeName === 'many' ? '动态参数' : '静态属性'" prop="attr_name">
+            <el-input v-model="editForm.attr_name"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editParams('editFormRef')">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -97,7 +123,24 @@ export default {
       activeName: 'many',
 
       // 表格数据
-      tableData: []
+      tableData: [],
+
+      // 添加弹框
+      dialogVisible: false,
+      // 添加表单的数据对象
+      addForm: {
+        attr_name: ''
+      },
+
+      // 编辑弹框
+      editDialogVisible: false,
+      // 编辑数据
+      editForm: {},
+
+      // 表单的验证规则对象
+      rules: {
+        attr_name: [{ required: true, message: '请输入属性名称', trigger: 'blur' }]
+      }
     }
   },
 
@@ -207,14 +250,88 @@ export default {
       })
     },
 
+    // 监听对话框的关闭事件
+    addDialogClosed() {
+      this.$refs.addFormRef.resetFields()
+    },
+
+    // 点击确定添加属性
+    addParams(formName) {
+      let that = this
+      // 表单预校验
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          let data = {
+            attr_name: that.addForm.attr_name,
+            attr_sel: that.activeName
+          }
+          // 调用添加分类接口
+          that.$api.post(`categories/${that.cateId}/attributes`, data, (res) => {
+            if (res.meta.status !== 201) return that.$message.error('添加属性失败')
+            that.$message.success('添加属性成功')
+            that.getParams()
+            that.dialogVisible = false
+          })
+        }
+      })
+    },
+
+    // 监听修改对话框的关闭事件
+    editDialogClosed() {
+      this.$refs.editFormRef.resetFields()
+    },
+
     // 编辑
-    showEditDialog(id) {
-      console.log(id)
+    showEditDialog(attr_id) {
+      let that = this
+      let data = { attr_sel: that.activeName }
+      that.$api.get(`categories/${that.cateId}/attributes/${attr_id}`, data, (res) => {
+        if (res.meta.status !== 200) return that.$message.error('获取当前参数失败')
+        that.editForm = res.data
+        that.editDialogVisible = true
+      })
+    },
+
+    //修改事件
+    editParams(formName) {
+      let that = this
+      // 表单预校验
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          let data = {
+            attr_name: that.editForm.attr_name,
+            attr_sel: that.editForm.attr_sel
+          }
+          // 调用添加分类接口
+          that.$api.put(`categories/${that.cateId}/attributes/${that.editForm.attr_id}`, data, (res) => {
+            if (res.meta.status !== 200) return that.$message.error('修改数据失败')
+            that.$message.success('修改数据成功')
+            that.getParams()
+            that.editDialogVisible = false
+          })
+        }
+      })
     },
 
     // 删除
-    removeParams(id) {
-      console.log(id)
+    async removeParams(id) {
+      let that = this
+      try {
+        await that.$confirm('是否删除该参数?', '提示', {
+          confirmButtonText: '删除',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+        console.log(id)
+        // 根据 ID 删除
+        // that.$api.delete(`categories/${that.cat_id}/attributes/${id / 1}`, {}, (res) => {
+        //   if (res.meta.status !== 200) return that.$message.error('删除失败')
+        //   that.$message.success('删除成功')
+        //   that.getParams()
+        // })
+      } catch (error) {
+        that.$message.info('取消')
+      }
     }
   }
 }
