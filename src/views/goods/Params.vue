@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:12:12
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-31 23:56:16
+ * @LastEditTime: 2021-09-01 00:15:13
  * @FilePath: \mall-system-gitee\src\views\goods\Params.vue
 -->
 <template>
@@ -322,13 +322,12 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         })
-        console.log(id)
         // 根据 ID 删除
-        // that.$api.delete(`categories/${that.cat_id}/attributes/${id / 1}`, {}, (res) => {
-        //   if (res.meta.status !== 200) return that.$message.error('删除失败')
-        //   that.$message.success('删除成功')
-        //   that.getParams()
-        // })
+        that.$api.delete(`categories/${that.cateId}/attributes/${id}`, {}, (res) => {
+          if (res.meta.status !== 200) return that.$message.error('删除失败')
+          that.$message.success('删除成功')
+          that.getParams()
+        })
       } catch (error) {
         that.$message.info('取消')
       }
