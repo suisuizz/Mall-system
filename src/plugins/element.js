@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-30 22:11:28
+ * @LastEditTime: 2021-09-05 22:54:46
  * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
@@ -43,6 +43,8 @@ import {
   Alert,
   Tabs,
   TabPane,
+  Steps,
+  Step,
 
 
   // Autocomplete,
@@ -70,8 +72,6 @@ import {
   // Spinner,
   // Badge,
   // Rate,
-  // Steps,
-  // Step,
   // Carousel,
   // CarouselItem,
   // Collapse,
@@ -122,6 +122,8 @@ Vue.use(Cascader);
 Vue.use(Alert);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Steps);
+Vue.use(Step);
 
 
 // Vue.use(Autocomplete);
@@ -149,8 +151,6 @@ Vue.use(TabPane);
 // Vue.use(Spinner);
 // Vue.use(Badge);
 // Vue.use(Rate);
-// Vue.use(Steps);
-// Vue.use(Step);
 // Vue.use(Carousel);
 // Vue.use(CarouselItem);
 // Vue.use(Collapse);

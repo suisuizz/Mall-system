@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:11:35
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-30 21:49:08
- * @FilePath: \mall-system-gitee\src\views\goods\goods.vue
+ * @LastEditTime: 2021-09-05 22:47:13
+ * @FilePath: \mall-system-gitee\src\views\goods\Goods.vue
 -->
 <template>
   <div>
@@ -130,7 +130,8 @@ export default {
 
     // 添加商品
     addGoods() {
-      console.log('添加商品')
+      // 跳转添加商品页面
+      this.$router.push('/goods/add')
     },
 
     // 显示编辑框
