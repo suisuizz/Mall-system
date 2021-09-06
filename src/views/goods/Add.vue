@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:09
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-05 23:11:34
+ * @LastEditTime: 2021-09-06 23:51:22
  * @FilePath: \mall-system-gitee\src\views\goods\Add.vue
 -->
 <template>
@@ -30,14 +30,34 @@
         <el-step title="完成"></el-step>
       </el-steps>
 
-      <!-- tab标签 -->
-      <el-tabs v-model="activeIndex" :tab-position="'left'" :before-leave="beforeTabsLeave" @tab-click="tabClick">
-        <el-tab-pane label="基本信息" name="0">用户管理</el-tab-pane>
-        <el-tab-pane label="商品参数" name="1">配置管理</el-tab-pane>
-        <el-tab-pane label="商品属性" name="2">角色管理</el-tab-pane>
-        <el-tab-pane label="商品图片" name="3">定时任务补偿</el-tab-pane>
-        <el-tab-pane label="商品内容" name="4">定时任务补偿</el-tab-pane>
-      </el-tabs>
+      <!-- form 表单嵌套 tab标签 一起提交 -->
+      <el-form ref="addFormRef" :model="addForm" :rules="rules" label-position="top">
+        <el-tabs v-model="activeIndex" :tab-position="'left'" :before-leave="beforeTabsLeave" @tab-click="tabClick">
+          <el-tab-pane label="基本信息" name="0">
+            <el-form-item prop="goods_name" label="商品名称">
+              <el-input v-model="addForm.goods_name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="goods_price" label="商品价格">
+              <el-input v-model="addForm.goods_price" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="goods_weight" label="商品重量">
+              <el-input v-model="addForm.goods_weight" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="goods_number" label="商品数量">
+              <el-input v-model="addForm.goods_number" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="goods_cat" label="选择商品分类">
+              <!-- options用来指定数据源 -->
+              <!-- props用来指定配置对象 -->
+              <el-cascader v-model="addForm.goods_cat" :options="cateList" :props="cateProps" @change="handleChange"></el-cascader>
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="商品参数" name="1">配置管理</el-tab-pane>
+          <el-tab-pane label="商品属性" name="2">角色管理</el-tab-pane>
+          <el-tab-pane label="商品图片" name="3">定时任务补偿</el-tab-pane>
+          <el-tab-pane label="商品内容" name="4">定时任务补偿</el-tab-pane>
+        </el-tabs>
+      </el-form>
     </el-card>
   </div>
 </template>
@@ -58,7 +78,40 @@ export default {
       },
 
       // 步骤条当前位置
-      activeIndex: '0'
+      activeIndex: '0',
+      // 添加表单的数据对象
+      addForm: {
+        goods_name: '',
+        goods_price: 0,
+        goods_number: 0,
+        goods_weight: 0,
+        // 商品所属的分类数组
+        goods_cat: [],
+        // 上传图片的临时路径
+        pics: [],
+        // 商品的详情描述
+        goods_introduce: '',
+        // 商品的参数，包含静态参数和动态属性
+        attrs: []
+      },
+      // 验证规则
+      rules: {
+        goods_name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
+        goods_price: [{ required: true, message: '请输入商品价格', trigger: 'blur' }],
+        goods_number: [{ required: true, message: '请输入商品数量', trigger: 'blur' }],
+        goods_weight: [{ required: true, message: '请输入商品重量', trigger: 'blur' }],
+        goods_cat: [{ required: true, message: '请选择商品分类', trigger: 'blur' }]
+      },
+
+      // 商品分类列表
+      cateList: [],
+      // 配置
+      cateProps: {
+        expandTrigger: 'hover',
+        label: 'cat_name',
+        value: 'cat_id',
+        children: 'children'
+      }
     }
   },
 
@@ -76,6 +129,10 @@ export default {
     },
 
     tabClick() {
+      // console.log()
+    },
+
+    handleChange() {
       // console.log()
     }
   }
