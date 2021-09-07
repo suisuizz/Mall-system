@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:09
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-06 23:51:22
+ * @LastEditTime: 2021-09-07 23:39:26
  * @FilePath: \mall-system-gitee\src\views\goods\Add.vue
 -->
 <template>
@@ -52,12 +52,45 @@
               <el-cascader v-model="addForm.goods_cat" :options="cateList" :props="cateProps" @change="handleChange"></el-cascader>
             </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="商品参数" name="1">配置管理</el-tab-pane>
-          <el-tab-pane label="商品属性" name="2">角色管理</el-tab-pane>
-          <el-tab-pane label="商品图片" name="3">定时任务补偿</el-tab-pane>
-          <el-tab-pane label="商品内容" name="4">定时任务补偿</el-tab-pane>
+          <el-tab-pane label="商品参数" name="1">
+            <!-- 渲染表单的item项 -->
+            <template v-if="manyTableData.length > 0">
+              <el-form-item :label="item.attr_name" v-for="item in manyTableData" :key="item.attr_id">
+                <!-- 复选框组   -->
+                <el-checkbox-group v-model="item.attr_vals">
+                  <el-checkbox :label="item1" v-for="(item1, index) in item.attr_vals" :key="index" border></el-checkbox>
+                </el-checkbox-group>
+              </el-form-item>
+            </template>
+            <template v-else>暂无数据</template>
+          </el-tab-pane>
+          <el-tab-pane label="商品属性" name="2">
+            <el-form-item :label="item.attr_name" v-for="item in onlyTableDate" :key="item.attr_id">
+              <el-input v-model="item.attr_vals"></el-input>
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="商品图片" name="3">
+            <!-- 上传图片到后台 -->
+            <el-upload :action="uploadUrl" :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture">
+              <el-button size="small" type="primary" :headers="headersObj" :on-success="handleSuccess">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-tab-pane>
+          <el-tab-pane label="商品内容" name="4">
+            <!-- 富文本 -->
+
+            <!-- 添加按钮 -->
+            <el-button type="primary" class="addbtn" @click="add">
+              添加商品
+            </el-button>
+          </el-tab-pane>
         </el-tabs>
       </el-form>
+
+      <!-- 图片预览的对话框 -->
+      <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
+        <img :src="previewPath" alt="" />
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -111,29 +144,122 @@ export default {
         label: 'cat_name',
         value: 'cat_id',
         children: 'children'
-      }
+      },
+
+      // 参数列表数据
+      manyTableData: [],
+      // 静态属性
+      onlyTableDate: [],
+
+      // 上传图片的url地址
+      uploadUrl: 'http://www.ysqorz.top:8888/api/private/v1/upload',
+      // 设置图片上传的请求头
+      headersObj: {
+        Authorization: window.sessionStorage.getItem('token')
+      },
+      previewPath: '',
+      dialogVisible: false
     }
   },
 
-  created() {},
+  computed: {
+    // 发送获取参数请求时 的分类id
+    cateId() {
+      if (this.addForm.goods_cat.length === 3) {
+        return this.addForm.goods_cat[2]
+      }
+      return null
+    }
+  },
+
+  created() {
+    // 获取分类
+    this.getCateList()
+  },
 
   methods: {
+    // 获取商品的分类数据
+    getCateList() {
+      let that = this
+      that.$api.get('categories', {}, (res) => {
+        if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
+        that.$message.success('获取分类数据成功')
+        // console.log(res.data)
+        // 分类列表
+        that.cateList = res.data
+      })
+    },
+
+    // 点击选择商品分类
+    handleChange() {
+      if (this.addForm.goods_cat.length !== 3) {
+        this.addForm.goods_cat = []
+      }
+    },
+
     //点击tab切换时触发,未满足条件不发生跳转
     beforeTabsLeave(activeName, oldActiveName) {
-      console.log('当前' + activeName)
-      console.log('之前' + oldActiveName)
-      // if (oldActiveName === '0' && this.addForm.goods_cat.length !== 3) {
-      //   this.$message.error('请先选择商品分类')
-      //   return false
-      // }
+      // console.log('当前' + activeName)
+      // console.log('之前' + oldActiveName)
+      if (oldActiveName === '0' && this.addForm.goods_name === '') {
+        this.$message.error('请填写商品名称')
+        return false
+      }
+      if (oldActiveName === '0' && this.addForm.goods_cat.length !== 3) {
+        this.$message.error('请先选择商品分类')
+        return false
+      }
     },
 
+    // 点击左侧 tab
     tabClick() {
-      // console.log()
+      let that = this
+      if (that.activeIndex === '1') {
+        that.$api.get(`categories/${that.cateId}/attributes`, { sel: 'many' }, (res) => {
+          if (res.meta.status !== 200) return that.$message.error('获取参数数据失败')
+          that.$message.success('获取参数数据成功')
+          // console.log(res.data)
+          res.data.forEach((item) => {
+            item.attr_vals === '' ? [] : (item.attr_vals = item.attr_vals.split(' '))
+          })
+          that.manyTableData = res.data
+        })
+      } else if (this.activeIndex === '2') {
+        that.$api.get(`categories/${that.cateId}/attributes`, { sel: 'only' }, (res) => {
+          if (res.meta.status !== 200) return that.$message.error('获取静态属性失败')
+          that.$message.success('获取静态属性成功')
+          // console.log(res.data)
+          that.onlyTableDate = res.data
+        })
+      }
     },
 
-    handleChange() {
-      // console.log()
+    // 图片预览的函数
+    handlePreview(file) {
+      this.previewPath = file.response.data.url
+      this.dialogVisible = true
+    },
+    // 移除图片的函数
+    handleRemove(file) {
+      // 1.获取将要删除图片的临时路径
+      const filePath = file.response.data.tmp_path
+      // 2.从pics数组中找到这张图片的索引值
+      const i = this.addForm.pics.findIndex((x) => x.pic === filePath)
+      // 3.用数组的splice方法删除
+      this.addForm.pics.splice(i, 1)
+      // console.log(file);
+    },
+    // 图片上传成功的处理函数
+    handleSuccess(response) {
+      // 1.拼接得到一个图片信息对象
+      const picInfo = { pic: response.data.tmp_path }
+      // 2.将信息添加到表单数组中
+      this.addForm.pics.push(picInfo)
+    },
+
+    // 添加商品
+    add() {
+      console.log('添加')
     }
   }
 }

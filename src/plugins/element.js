@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 21:20:34
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-05 22:54:46
+ * @LastEditTime: 2021-09-07 23:35:48
  * @FilePath: \mall-system-gitee\src\plugins\element.js
  */
 
@@ -45,6 +45,9 @@ import {
   TabPane,
   Steps,
   Step,
+  Checkbox,
+  CheckboxGroup,
+  Upload,
 
 
   // Autocomplete,
@@ -56,9 +59,7 @@ import {
   // Radio,
   // RadioGroup,
   // RadioButton,
-  // Checkbox,
   // CheckboxButton,
-  // CheckboxGroup,
   // OptionGroup,
   // ButtonGroup,
   // DatePicker,
@@ -67,7 +68,6 @@ import {
   // Popover,
   // Slider,
   // Icon,
-  // Upload,
   // Progress,
   // Spinner,
   // Badge,
@@ -124,6 +124,9 @@ Vue.use(Tabs);
 Vue.use(TabPane);
 Vue.use(Steps);
 Vue.use(Step);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+Vue.use(Upload);
 
 
 // Vue.use(Autocomplete);
@@ -135,9 +138,7 @@ Vue.use(Step);
 // Vue.use(Radio);
 // Vue.use(RadioGroup);
 // Vue.use(RadioButton);
-// Vue.use(Checkbox);
 // Vue.use(CheckboxButton);
-// Vue.use(CheckboxGroup);
 // Vue.use(OptionGroup);
 // Vue.use(ButtonGroup);
 // Vue.use(DatePicker);
@@ -146,7 +147,6 @@ Vue.use(Step);
 // Vue.use(Popover);
 // Vue.use(Slider);
 // Vue.use(Icon);
-// Vue.use(Upload);
 // Vue.use(Progress);
 // Vue.use(Spinner);
 // Vue.use(Badge);
