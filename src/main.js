@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 20:31:08
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-29 13:53:31
- * @FilePath: \mall-system-gitee\src\main.js
+ * @LastEditTime: 2021-09-09 23:57:42
+ * @FilePath: \mall-system-hub\src\main.js
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -34,6 +34,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
+
   next();
 })
 
