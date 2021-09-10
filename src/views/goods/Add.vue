@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:09
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-10 23:47:16
+ * @LastEditTime: 2021-09-11 00:14:46
  * @FilePath: \mall-system-gitee\src\views\goods\Add.vue
 -->
 <template>
@@ -81,7 +81,7 @@
             <quill-editor v-model="addForm.goods_introduce"></quill-editor>
 
             <!-- 添加按钮 -->
-            <el-button type="primary" class="addbtn" @click="add">
+            <el-button type="primary" class="addbtn" @click="add('addFormRef')">
               添加商品
             </el-button>
           </el-tab-pane>
@@ -259,8 +259,42 @@ export default {
     },
 
     // 添加商品
-    add() {
-      console.log('添加')
+    add(formName) {
+      let that = this
+      // 表单校验
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // //  执行商品添加的业务逻辑
+          // //  深拷贝
+          // const form = _.cloneDeep(that.addForm)
+          // // 将goods_cat转化成字符串
+          // form.goods_cat = form.goods_cat.join(',')
+          // // 处理动态参数
+          // that.manyTableData.forEach((item) => {
+          //   const newInfo = {
+          //     attr_id: item.attr_id,
+          //     attr_value: item.attr_vals.join(' ')
+          //   }
+          //   that.addForm.attrs.push(newInfo)
+          // })
+          // // 处理静态属性
+          // that.onlyTableDate.forEach((item) => {
+          //   const newInfo = {
+          //     attr_id: item.attr_id,
+          //     attr_value: item.attr_vals
+          //   }
+          //   that.addForm.attrs.push(newInfo)
+          // })
+          // form.attrs = that.addForm.attrs
+          // // console.log(form);
+          //
+          // that.$api.post('goods', form, (res) => {
+          //   if (res.meta.status !== 201) return that.$message.error(res.meta.msg)
+          //   that.$message.success('添加成功')
+          //   that.$router.push('/goods')
+          // })
+        }
+      })
     }
   }
 }
