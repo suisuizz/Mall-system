@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:09
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-07 23:39:26
+ * @LastEditTime: 2021-09-10 23:47:16
  * @FilePath: \mall-system-gitee\src\views\goods\Add.vue
 -->
 <template>
@@ -77,7 +77,8 @@
             </el-upload>
           </el-tab-pane>
           <el-tab-pane label="商品内容" name="4">
-            <!-- 富文本 -->
+            <!-- 富文本编辑器组件 -->
+            <quill-editor v-model="addForm.goods_introduce"></quill-editor>
 
             <!-- 添加按钮 -->
             <el-button type="primary" class="addbtn" @click="add">
@@ -265,4 +266,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-checkbox {
+  margin: 0 10px 0 0 !important;
+}
+.addbtn {
+  margin-top: 15px;
+}
+</style>

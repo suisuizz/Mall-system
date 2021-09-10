@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 20:31:08
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-09 23:57:42
- * @FilePath: \mall-system-hub\src\main.js
+ * @LastEditTime: 2021-09-10 23:51:10
+ * @FilePath: \mall-system-gitee\src\main.js
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -15,6 +15,15 @@ import store from './store'
 
 // 引入树形组件
 import TreeTable from 'vue-table-with-tree-grid'
+
+// 引入富文本
+import VueQuillEditor from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
+Vue.use(VueQuillEditor)
 
 // 按需引入 element
 import './plugins/element'
