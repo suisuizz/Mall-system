@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:09
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-11 00:14:46
+ * @LastEditTime: 2021-09-12 19:29:05
  * @FilePath: \mall-system-gitee\src\views\goods\Add.vue
 -->
 <template>
@@ -56,7 +56,7 @@
             <!-- 渲染表单的item项 -->
             <template v-if="manyTableData.length > 0">
               <el-form-item :label="item.attr_name" v-for="item in manyTableData" :key="item.attr_id">
-                <!-- 复选框组   -->
+                <!-- 复选框组、多选框组   -->
                 <el-checkbox-group v-model="item.attr_vals">
                   <el-checkbox :label="item1" v-for="(item1, index) in item.attr_vals" :key="index" border></el-checkbox>
                 </el-checkbox-group>
@@ -65,6 +65,7 @@
             <template v-else>暂无数据</template>
           </el-tab-pane>
           <el-tab-pane label="商品属性" name="2">
+            <!-- input 框循环、渲染 -->
             <el-form-item :label="item.attr_name" v-for="item in onlyTableDate" :key="item.attr_id">
               <el-input v-model="item.attr_vals"></el-input>
             </el-form-item>
@@ -98,6 +99,9 @@
 <script>
 // 引入面包屑
 import Bread from '@/components/common/Bread'
+
+// 引入 lodash
+import _ from 'lodash'
 export default {
   name: 'Add',
   components: {
@@ -163,6 +167,7 @@ export default {
     }
   },
 
+  // 计算属性获取id
   computed: {
     // 发送获取参数请求时 的分类id
     cateId() {
@@ -200,12 +205,14 @@ export default {
 
     //点击tab切换时触发,未满足条件不发生跳转
     beforeTabsLeave(activeName, oldActiveName) {
-      // console.log('当前' + activeName)
-      // console.log('之前' + oldActiveName)
+      // console.log('即将离开的标签页' + oldActiveName)
+      // console.log('即将进入的标签页' + activeName)
+      // 选择第一个标签页 并且 没有填写商品名称
       if (oldActiveName === '0' && this.addForm.goods_name === '') {
         this.$message.error('请填写商品名称')
         return false
       }
+      // 选择第一个标签页 并且 没有选择商品分类
       if (oldActiveName === '0' && this.addForm.goods_cat.length !== 3) {
         this.$message.error('请先选择商品分类')
         return false
@@ -215,17 +222,21 @@ export default {
     // 点击左侧 tab
     tabClick() {
       let that = this
+      // 获取参数列表
+      // 访问动态参数面板
       if (that.activeIndex === '1') {
         that.$api.get(`categories/${that.cateId}/attributes`, { sel: 'many' }, (res) => {
           if (res.meta.status !== 200) return that.$message.error('获取参数数据失败')
           that.$message.success('获取参数数据成功')
           // console.log(res.data)
           res.data.forEach((item) => {
+            // 判断 有 attr_vals 值后 分割 item 项渲染   ===>  split 分割 字符串变数组
             item.attr_vals === '' ? [] : (item.attr_vals = item.attr_vals.split(' '))
           })
           that.manyTableData = res.data
         })
       } else if (this.activeIndex === '2') {
+        // 获取静态数据
         that.$api.get(`categories/${that.cateId}/attributes`, { sel: 'only' }, (res) => {
           if (res.meta.status !== 200) return that.$message.error('获取静态属性失败')
           that.$message.success('获取静态属性成功')
@@ -240,16 +251,19 @@ export default {
       this.previewPath = file.response.data.url
       this.dialogVisible = true
     },
+
     // 移除图片的函数
     handleRemove(file) {
       // 1.获取将要删除图片的临时路径
       const filePath = file.response.data.tmp_path
-      // 2.从pics数组中找到这张图片的索引值
-      const i = this.addForm.pics.findIndex((x) => x.pic === filePath)
-      // 3.用数组的splice方法删除
-      this.addForm.pics.splice(i, 1)
+      // 2.从 pics 数组中找到这张图片的索引值
+      // findIndex 函数找到值
+      const index = this.addForm.pics.findIndex((item) => item.pic === filePath)
+      // 3.用数组的 splice 方法删除
+      this.addForm.pics.splice(index, 1)
       // console.log(file);
     },
+
     // 图片上传成功的处理函数
     handleSuccess(response) {
       // 1.拼接得到一个图片信息对象
@@ -264,35 +278,40 @@ export default {
       // 表单校验
       that.$refs[formName].validate((valid) => {
         if (valid) {
-          // //  执行商品添加的业务逻辑
-          // //  深拷贝
-          // const form = _.cloneDeep(that.addForm)
-          // // 将goods_cat转化成字符串
-          // form.goods_cat = form.goods_cat.join(',')
-          // // 处理动态参数
-          // that.manyTableData.forEach((item) => {
-          //   const newInfo = {
-          //     attr_id: item.attr_id,
-          //     attr_value: item.attr_vals.join(' ')
-          //   }
-          //   that.addForm.attrs.push(newInfo)
-          // })
-          // // 处理静态属性
-          // that.onlyTableDate.forEach((item) => {
-          //   const newInfo = {
-          //     attr_id: item.attr_id,
-          //     attr_value: item.attr_vals
-          //   }
-          //   that.addForm.attrs.push(newInfo)
-          // })
-          // form.attrs = that.addForm.attrs
-          // // console.log(form);
-          //
-          // that.$api.post('goods', form, (res) => {
-          //   if (res.meta.status !== 201) return that.$message.error(res.meta.msg)
-          //   that.$message.success('添加成功')
-          //   that.$router.push('/goods')
-          // })
+          // 执行商品添加的业务逻辑
+          // 深拷贝
+          const form = _.cloneDeep(that.addForm)
+          // 将 goods_cat 转化成字符串
+          form.goods_cat = form.goods_cat.join(',')
+
+          // 处理动态参数
+          that.manyTableData.forEach((item) => {
+            const newInfo = {
+              attr_id: item.attr_id,
+              attr_value: item.attr_vals.join(' ')
+            }
+            that.addForm.attrs.push(newInfo)
+          })
+
+          // 处理静态属性
+          that.onlyTableDate.forEach((item) => {
+            const newInfo = {
+              attr_id: item.attr_id,
+              attr_value: item.attr_vals
+            }
+            that.addForm.attrs.push(newInfo)
+          })
+
+          form.attrs = that.addForm.attrs
+          // console.log(form);
+
+          that.$api.post('goods', form, (res) => {
+            if (res.meta.status !== 201) return that.$message.error(res.meta.msg)
+            that.$message.success('添加成功')
+            that.$router.push('/goods')
+          })
+        } else {
+          return that.$message.error('请填写必要的表单项')
         }
       })
     }

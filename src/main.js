@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-14 20:31:08
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-10 23:51:10
+ * @LastEditTime: 2021-09-12 18:42:30
  * @FilePath: \mall-system-gitee\src\main.js
  */
 import Vue from 'vue'
@@ -18,11 +18,13 @@ import TreeTable from 'vue-table-with-tree-grid'
 
 // 引入富文本
 import VueQuillEditor from 'vue-quill-editor'
-
+// 引入富文本样式
 import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
+
+// 注册富文本为全局可用组件
 Vue.use(VueQuillEditor)
 
 // 按需引入 element
