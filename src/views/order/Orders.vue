@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-15 23:43:32
- * @FilePath: \mall-system-hub\src\views\order\Orders.vue
+ * @LastEditTime: 2021-09-18 23:49:56
+ * @FilePath: \mall-system-gitee\src\views\order\Orders.vue
 -->
 <template>
   <div>
@@ -46,23 +46,37 @@
             <el-button type="success" icon="el-icon-location" size="mini" @click="showProgressBox"></el-button>
           </template>
         </el-table-column>
-
-        <!-- 分页选择器 -->
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="queryInfo.pagenum"
-          :page-sizes="[10, 15, 20, 30]"
-          :page-size="queryInfo.pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        >
-        </el-pagination>
-
-        <!-- 编辑 -->
-        xxx
-        <!-- 地址 -->
       </el-table>
+
+      <!-- 分页选择器 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+
+      <!-- 编辑 -->
+      <el-dialog title="添加用户" width="35%" :visible.sync="editDialog" @close="editDialog = false">
+        <el-form ref="editOrder" :model="editForm" :rules="formRules">
+          <!-- prop="username"  校验 -->
+          <el-form-item prop="x" label="用户名" label-width="100px">
+            <el-input v-model="editForm.username" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item prop="username" label="详细地址" label-width="100px">
+            <el-input v-model="editForm.password" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="editDialog = false">取 消</el-button>
+          <el-button type="primary" @click="editSubmitForm('editOrder')">添 加</el-button>
+        </div>
+      </el-dialog>
+      <!-- 地址 -->
     </el-card>
   </div>
 </template>
@@ -88,12 +102,26 @@ export default {
       // 查询数据
       queryInfo: {
         query: '',
-        pagesize: 10,
+        pagesize: 5,
         pagenum: 1
       },
 
       // 数据展示
-      orderList: []
+      orderList: [],
+
+      // 编辑
+      editDialog: false,
+      editForm: {
+        username: '',
+        password: ''
+      },
+
+      formRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ]
+      }
     }
   },
 
@@ -112,6 +140,8 @@ export default {
         // console.log(res.data)
         // 商品总数
         that.total = res.data.total
+        // 分页
+        that.queryInfo.pagenum = res.data.pagenum / 1
         // 商品列表
         that.orderList = res.data.goods
       })
@@ -130,6 +160,28 @@ export default {
     // 编辑
     showDialog() {
       console.log('编辑')
+      this.editDialog = true
+      this.editForm = {
+        username: '',
+        password: ''
+      }
+    },
+
+    // 编辑订单
+    editSubmitForm(formName) {
+      let that = this
+      // 表单校验
+      that.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用修改用户接口
+          // that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
+          //   if (res.meta.status !== 200) return that.$message.error('修改用户失败')
+          //   that.$message.success('修改用户成功')
+          //   that.editDialog = false
+          //   that.getUserLIst()
+          // })
+        }
+      })
     },
 
     // 地址
@@ -140,4 +192,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-table {
+  margin-top: 15px;
+}
+</style>
