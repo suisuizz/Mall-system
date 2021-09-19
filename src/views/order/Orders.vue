@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-18 23:49:56
+ * @LastEditTime: 2021-09-19 23:26:24
  * @FilePath: \mall-system-gitee\src\views\order\Orders.vue
 -->
 <template>
@@ -173,7 +173,7 @@ export default {
       // 表单校验
       that.$refs[formName].validate((valid) => {
         if (valid) {
-          // 调用修改用户接口
+          // 编辑订单接口
           // that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
           //   if (res.meta.status !== 200) return that.$message.error('修改用户失败')
           //   that.$message.success('修改用户成功')
@@ -187,6 +187,7 @@ export default {
     // 地址
     showProgressBox() {
       console.log('地址')
+      // 获取物流信息
     }
   }
 }
