@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-21 21:12:33
+ * @LastEditTime: 2021-09-21 21:56:20
  * @FilePath: \mall-system-gitee\src\views\order\Orders.vue
 -->
 <template>
@@ -203,7 +203,7 @@ export default {
       // 获取物流信息
       // that.$api.get(`/kuaidi/${row.order_number}`, {}, (res) => {
       that.$api.get('/kuaidi/1106975712662', {}, (res) => {
-        if (res.status !== 200) return that.$message.error('获取物流信息失败')
+        if (res.meta.status !== 200) return that.$message.error('获取物流信息失败')
         console.log(res.data)
         that.progressDialog = true
       })

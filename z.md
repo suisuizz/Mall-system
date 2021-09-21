@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-16 19:01:41
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-11 00:04:42
+ * @LastEditTime: 2021-09-21 21:33:00
  * @FilePath: \mall-system-gitee\z.md
 -->
 
@@ -90,6 +90,10 @@ import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
 Vue.use(VueQuillEditor)
+
+
+// 引入 echarts
+npm install echarts -S
 ```
 
 ## 效果
