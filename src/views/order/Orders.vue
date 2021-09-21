@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-24 01:15:51
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-20 23:17:13
+ * @LastEditTime: 2021-09-21 21:12:33
  * @FilePath: \mall-system-gitee\src\views\order\Orders.vue
 -->
 <template>
@@ -79,10 +79,7 @@
 
       <!-- 查看物流信息 -->
       <el-dialog title="查看物流信息" width="50%" :visible.sync="progressDialog" @close="progressDialog = false">
-        <!-- <div slot="footer" class="dialog-footer">
-          <el-button @click="editDialog = false">取 消</el-button>
-          <el-button type="primary" @click="xxxxx('editOrder')">添 加</el-button>
-        </div> -->
+        <!-- 展示物流信息--时间线 timeline -->
       </el-dialog>
     </el-card>
   </div>
@@ -173,12 +170,12 @@ export default {
 
     // 编辑
     showDialog() {
-      console.log('编辑')
-      this.editDialog = true
+      // 初始化
       this.editForm = {
-        username: '',
-        password: ''
+        address1: '',
+        address2: ''
       }
+      this.editDialog = true
     },
 
     // 编辑订单
@@ -187,8 +184,6 @@ export default {
       // 表单校验
       that.$refs[formName].validate((valid) => {
         if (valid) {
-          that.editDialog = false
-
           // 编辑订单接口
           // that.$api.put(`users/${that.editForm.id}`, that.editForm, (res) => {
           //   if (res.meta.status !== 200) return that.$message.error('修改用户失败')
@@ -196,6 +191,7 @@ export default {
           //   that.editDialog = false
           //   that.getUserLIst()
           // })
+          that.editDialog = false
         }
       })
     },
@@ -203,12 +199,12 @@ export default {
     // 地址
     showProgressBox(row) {
       let that = this
+      console.log(row)
       // 获取物流信息
-      that.$api.get(`kuaidi/${row.order_number}`, {}, (res) => {
-        // that.$api.get(`kuaidi/1106975712662`, {}, (res) => {
+      // that.$api.get(`/kuaidi/${row.order_number}`, {}, (res) => {
+      that.$api.get('/kuaidi/1106975712662', {}, (res) => {
         if (res.status !== 200) return that.$message.error('获取物流信息失败')
         console.log(res.data)
-
         that.progressDialog = true
       })
     }
@@ -219,5 +215,9 @@ export default {
 <style lang="scss" scoped>
 .el-table {
   margin-top: 15px;
+}
+
+.el-cascader {
+  width: 100%;
 }
 </style>
