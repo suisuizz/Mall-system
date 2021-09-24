@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-16 19:01:41
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-21 21:33:00
+ * @LastEditTime: 2021-09-24 23:37:30
  * @FilePath: \mall-system-gitee\z.md
 -->
 
@@ -71,6 +71,14 @@ npm i axios -S
 // 导航进度条
 npm install --save nprogress
 
+// 使用
+// 导入
+import NProgress from 'nprogress'
+// 打开
+NProgress.start()
+// 隐藏
+NProgress.done()
+
 
 // 树形组件
 npm i vue-table-with-tree-grid -S
@@ -99,3 +107,11 @@ npm install echarts -S
 ## 效果
 
 http://gl.timemeetyou.com/#/login
+
+## 项目优化
+
+1、生成打包报告
+2、第三方库启用 CDN
+3、element-ui 组件启动按需加载
+4、路由懒加载
+5、首页内容定制

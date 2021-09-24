@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 10:58:17
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-29 13:54:44
+ * @LastEditTime: 2021-09-24 23:45:41
  * @FilePath: \mall-system-gitee\src\api\index.js
  */
 // 配置API接口地址
@@ -11,8 +11,9 @@ let root = "http://www.ysqorz.top:8888/api/private/v1/";
 // let root = "http://timemeetyou.com:8889/api/private/v1/";
 // 引用 axios
 let axios = require("axios");
-// 倒入 nprogress 包对应的js和css文件
+// 导入 nprogress 包对应的js和css文件
 import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 
 // axios的请求根路径
