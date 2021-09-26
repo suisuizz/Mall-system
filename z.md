@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-16 19:01:41
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-25 23:27:04
+ * @LastEditTime: 2021-09-26 23:16:00
  * @FilePath: \mall-system-gitee\z.md
 -->
 
@@ -107,6 +107,9 @@ npm install echarts -S
 // 去 console
 babel-plugin-transform-remove-console
 https://www.npmjs.com/package/babel-plugin-transform-remove-console
+
+引入
+npm install babel-plugin-transform-remove-console --save-dev
 ```
 
 ## 效果

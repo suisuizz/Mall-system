@@ -190,7 +190,7 @@ export default {
       that.$api.get('categories', {}, (res) => {
         if (res.meta.status !== 200) return that.$message.error(res.meta.msg)
         that.$message.success('获取分类数据成功')
-        // console.log(res.data)
+        console.log(res.data)
         // 分类列表
         that.cateList = res.data
       })

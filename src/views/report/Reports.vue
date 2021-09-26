@@ -88,7 +88,7 @@ export default {
     // 接口获取 echarts 数据
     that.$api.get('reports/type/1', {}, (res) => {
       if (res.meta.status !== 200) return that.$message.error('获取图表失败')
-      // console.log(res.data)
+      console.log(res.data)
 
       // 合并对象
       const result = _.merge(res.data, this.options)
