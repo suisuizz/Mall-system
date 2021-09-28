@@ -3,8 +3,8 @@
  * @Author: SUI
  * @Date: 2021-08-14 20:31:08
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-12 18:42:30
- * @FilePath: \mall-system-gitee\src\main.js
+ * @LastEditTime: 2021-09-28 22:54:44
+ * @FilePath: \mall-system-gitee\src\main-prod.js
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -18,17 +18,28 @@ import TreeTable from 'vue-table-with-tree-grid'
 
 // 引入富文本
 import VueQuillEditor from 'vue-quill-editor'
-// 引入富文本样式
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
 
+// 导入 nprogress 包对应的js和css文件
+import NProgress from 'nprogress'
+import axios from 'axios'
+
+// axios的请求根路径
+axios.defaults.baseURL = 'http://www.ysqorz.top:8888/api/private/v1/' // 设置路由访问
+// axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/' // 设置路由访问
+axios.interceptors.request.use(config => {
+  // 在请求拦截器中打开进度条
+  NProgress.start()
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  return config
+})
+axios.interceptors.response.use(config => {
+  // 在相应拦截器中关闭进度条
+  NProgress.done()
+  return config
+})
 
 // 注册富文本为全局可用组件
 Vue.use(VueQuillEditor)
-
-// 按需引入 element
-import './plugins/element'
 
 // 引入 axios API
 import api from "./api/index";
