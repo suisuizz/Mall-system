@@ -3,7 +3,7 @@
  * @Author: SUI
  * @Date: 2021-08-15 09:02:21
  * @LastEditors: SUI
- * @LastEditTime: 2021-09-28 23:06:10
+ * @LastEditTime: 2021-09-28 23:47:02
  * @FilePath: \mall-system-gitee\vue.config.js
  */
 module.exports = {
@@ -25,19 +25,20 @@ module.exports = {
 				'vue-quill-editor': 'VueQuillEditor'
 			})
 
-			// config.plugin('html').tap(args => {
-			// 	args[0].isProd = true
-			// 	return args
-			// })
+			config.plugin('html').tap(args => {
+				args[0].isProd = true
+				return args
+			})
 		})
 
 		// 开发模式 
 		config.when(process.env.NODE_ENV === 'development', config => {
 			config.entry('app').clear().add('./src/main-dev.js')
-			// config.plugin('html').tap(args => {
-			// 	args[0].isProd = false
-			// 	return args
-			// })
+
+			config.plugin('html').tap(args => {
+				args[0].isProd = false
+				return args
+			})
 		})
 	}
 
