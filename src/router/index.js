@@ -3,11 +3,29 @@
  * @Author: SUI
  * @Date: 2021-08-14 17:41:47
  * @LastEditors: SUI
- * @LastEditTime: 2021-08-24 01:17:29
+ * @LastEditTime: 2021-10-03 19:15:12
  * @FilePath: \mall-system-gitee\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+// 实现路由懒加载
+const Login = () => import( /* webpackChunkName: "Login_Welcome_Users" */ '@/components/home/Login')
+const Home = () => import( /* webpackChunkName: "Login_Welcome_Users" */ '@/views/Home')
+const Welcome = () => import( /* webpackChunkName: "Login_Welcome_Users" */ '@/components/home/Welcome')
+
+const Users = () => import( /* webpackChunkName: "Users_Rights_Roles" */ '@/views/user/Users')
+const Roles = () => import( /* webpackChunkName: "Users_Rights_Roles" */ '@/views/power/Roles')
+const Rights = () => import( /* webpackChunkName: "Users_Rights_Roles" */ '@/views/power/Rights')
+
+const Goods = () => import( /* webpackChunkName: "Add_Goods" */ '@/views/goods/Goods')
+const Add = () => import( /* webpackChunkName: "Add_Goods" */ '@/views/goods/Add')
+
+const Params = () => import( /* webpackChunkName: "Cate_Params" */ '@/views/goods/Params')
+const Cate = () => import( /* webpackChunkName: "Cate_Params" */ '@/views/goods/Cate')
+
+const Orders = () => import( /* webpackChunkName: "Order_Report" */ '@/views/order/Orders')
+const Reports = () => import( /* webpackChunkName: "Order_Report" */ '@/views/report/Reports')
 
 Vue.use(VueRouter)
 
@@ -19,55 +37,52 @@ const routes = [{
   {
     path: '/login',
     // 路由懒加载
-    component: () => import('@/components/home/Login'),
-    meta: {
-      name: '登录'
-    }
+    component: Login
   },
   {
     path: '/home',
-    component: () => import('@/views/Home'),
+    component: Home,
     // 重定向
     redirect: '/welcome',
     children: [{
         path: '/welcome',
-        component: () => import('@/components/home/Welcome')
+        component: Welcome
       },
       {
         path: '/users',
-        component: () => import('@/views/user/Users')
+        component: Users
       },
       {
         path: '/roles',
-        component: () => import('@/views/power/Roles')
+        component: Roles
       },
       {
         path: '/rights',
-        component: () => import('@/views/power/Rights')
+        component: Rights
       },
       {
         path: '/goods',
-        component: () => import('@/views/goods/Goods')
+        component: Goods
       },
       {
         path: '/goods/add',
-        component: () => import('@/views/goods/Add')
+        component: Add
       },
       {
         path: '/params',
-        component: () => import('@/views/goods/Params')
+        component: Params
       },
       {
         path: '/categories',
-        component: () => import('@/views/goods/Cate')
+        component: Cate
       },
       {
         path: '/orders',
-        component: () => import('@/views/order/Orders')
+        component: Orders
       },
       {
         path: '/reports',
-        component: () => import('@/views/report/Reports')
+        component: Reports
       },
     ]
   },
